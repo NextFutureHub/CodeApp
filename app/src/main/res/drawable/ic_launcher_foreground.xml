@@ -1,9 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+    <!-- Code brackets </> — matches code-bloom favicon -->
     <path
-        android:fillColor="#9B51E0"
-        android:pathData="M58,24 L42,58 L54,58 L48,84 L72,46 L58,46 Z" />
+        android:pathData="M23.5,22.5 L15.5,32 L23.5,41.5"
+        android:strokeWidth="4.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent" />
+    <path
+        android:pathData="M40.5,22.5 L48.5,32 L40.5,41.5"
+        android:strokeWidth="4.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent" />
+    <path
+        android:pathData="M36.5,18 L28.5,46"
+        android:strokeWidth="4.5"
+        android:strokeColor="#FDE68A"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent" />
+    <path
+        android:pathData="M47.5,17.5m-4.5,0a4.5,4.5 0,1 1,9 0a4.5,4.5 0,1 1,-9 0"
+        android:fillColor="#FDE68A" />
 </vector>
