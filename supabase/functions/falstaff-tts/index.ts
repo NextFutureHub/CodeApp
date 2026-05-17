@@ -27,12 +27,13 @@ Deno.serve(async (req) => {
     const supabase = createClient(supabaseUrl, serviceKey);
     const path = `${lessonId}/${beatId}.mp3`;
 
-    const { data: existing } = supabase.storage.from("falstaff-audio").getPublicUrl(path);
-    const publicUrl = existing.publicUrl;
+    const { data: cachedFile, error: downloadErr } = await supabase.storage
+      .from("falstaff-audio")
+      .download(path);
 
-    const head = await fetch(publicUrl, { method: "HEAD" });
-    if (head.ok) {
-      return new Response(JSON.stringify({ url: publicUrl, cached: true }), {
+    if (!downloadErr && cachedFile) {
+      const { data: existing } = supabase.storage.from("falstaff-audio").getPublicUrl(path);
+      return new Response(JSON.stringify({ url: existing.publicUrl, cached: true }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }

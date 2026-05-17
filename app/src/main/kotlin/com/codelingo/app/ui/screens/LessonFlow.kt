@@ -2,21 +2,19 @@ package com.codelingo.app.ui.screens
 
 import com.codelingo.app.data.model.Lesson
 import com.codelingo.app.data.model.hasMiniScene
-import com.codelingo.app.data.model.hasStoryIntro
 import com.codelingo.app.data.model.hasStoryOutro
 
 enum class LessonStage {
     Theory,
-    StoryIntro,
     Task,
     MiniWorld,
     StoryOutro,
     Finished,
 }
 
+/** Теория → практика (задания) → мини-мир → финал с Фальстафом → XP */
 fun Lesson.initialStage(): LessonStage = when {
     !theory.isNullOrBlank() -> LessonStage.Theory
-    hasStoryIntro() -> LessonStage.StoryIntro
     tasks.isNotEmpty() -> LessonStage.Task
     hasMiniScene() -> LessonStage.MiniWorld
     hasStoryOutro() -> LessonStage.StoryOutro
@@ -25,13 +23,6 @@ fun Lesson.initialStage(): LessonStage = when {
 
 fun Lesson.nextStageAfter(current: LessonStage): LessonStage = when (current) {
     LessonStage.Theory -> when {
-        hasStoryIntro() -> LessonStage.StoryIntro
-        tasks.isNotEmpty() -> LessonStage.Task
-        hasMiniScene() -> LessonStage.MiniWorld
-        hasStoryOutro() -> LessonStage.StoryOutro
-        else -> LessonStage.Finished
-    }
-    LessonStage.StoryIntro -> when {
         tasks.isNotEmpty() -> LessonStage.Task
         hasMiniScene() -> LessonStage.MiniWorld
         hasStoryOutro() -> LessonStage.StoryOutro
@@ -53,7 +44,6 @@ fun Lesson.nextStageAfter(current: LessonStage): LessonStage = when (current) {
 fun Lesson.totalProgressSteps(): Int {
     var steps = 0
     if (!theory.isNullOrBlank()) steps++
-    if (hasStoryIntro()) steps++
     steps += tasks.size
     if (hasMiniScene()) steps++
     if (hasStoryOutro()) steps++
@@ -65,16 +55,13 @@ fun Lesson.progressFor(stage: LessonStage, taskIndex: Int): Float {
     var done = 0f
     val total = totalProgressSteps().toFloat()
     if (!theory.isNullOrBlank()) {
-        if (stage == LessonStage.Theory) return done / total
-        done++
-    }
-    if (hasStoryIntro()) {
-        if (stage == LessonStage.StoryIntro) return (done + 0.4f) / total
-        if (stage.ordinal < LessonStage.StoryIntro.ordinal) return done / total
+        if (stage == LessonStage.Theory) return 0.5f / total.coerceAtLeast(1f)
         done++
     }
     if (tasks.isNotEmpty()) {
-        if (stage == LessonStage.Task) return (done + (taskIndex + 1f) / tasks.size.coerceAtLeast(1)) / total
+        if (stage == LessonStage.Task) {
+            return (done + (taskIndex + 1f) / tasks.size.coerceAtLeast(1)) / total
+        }
         if (stage.ordinal < LessonStage.Task.ordinal) return done / total
         done += tasks.size
     }

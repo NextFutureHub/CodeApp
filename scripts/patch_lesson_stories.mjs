@@ -73,8 +73,8 @@ for (const course of courses) {
       const topic = lesson.title;
       const firstTask = lesson.tasks[0];
       const introLines = custom?.intro ?? [
-        `Я Фальстаф. Урок «${topic}» — поехали!`,
-        lesson.description || "Сейчас потренируемся на практике.",
+        `Я Фальстаф. Сейчас разберём теорию урока «${topic}».`,
+        lesson.description || "После теории перейдём к практическим заданиям.",
       ];
       const outroLines = custom?.outro ?? [
         `Урок «${topic}» пройден. Молодец!`,

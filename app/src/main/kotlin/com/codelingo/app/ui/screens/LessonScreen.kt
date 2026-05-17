@@ -3,7 +3,9 @@ package com.codelingo.app.ui.screens
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -21,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -30,15 +34,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.codelingo.app.R
 import com.codelingo.app.data.CourseRepository
 import com.codelingo.app.data.model.GameState
 import com.codelingo.app.data.model.Lesson
 import com.codelingo.app.data.model.Task
 import com.codelingo.app.data.model.TaskType
 import com.codelingo.app.data.voice.FalstaffVoiceRepository
+import com.codelingo.app.data.voice.VoiceSource
 import com.codelingo.app.ui.components.PrimaryButton
 import com.codelingo.app.ui.story.FalstaffStoryScreen
 import com.codelingo.app.ui.story.MiniWorldScreen
@@ -141,13 +149,10 @@ fun LessonScreen(
 
         Crossfade(targetState = stage, modifier = Modifier.weight(1f).fillMaxWidth(), label = "lesson") { current ->
             when (current) {
-                LessonStage.Theory -> TheoryPhase(lesson) { stage = lesson.nextStageAfter(LessonStage.Theory) }
-                LessonStage.StoryIntro -> FalstaffStoryScreen(
-                    lessonId = lesson.id,
-                    beats = lesson.storyIntro.orEmpty(),
-                    title = "Фальстаф зовёт в путь",
+                LessonStage.Theory -> TheoryPhase(
+                    lesson = lesson,
                     voiceRepository = voiceRepository,
-                    onComplete = { stage = lesson.nextStageAfter(LessonStage.StoryIntro) },
+                    onContinue = { stage = lesson.nextStageAfter(LessonStage.Theory) },
                 )
                 LessonStage.Task -> {
                     val task = lesson.tasks.getOrNull(taskIndex)
@@ -217,16 +222,66 @@ private fun LessonScrollableContent(
 }
 
 @Composable
-private fun TheoryPhase(lesson: Lesson, onContinue: () -> Unit) {
+private fun TheoryPhase(
+    lesson: Lesson,
+    voiceRepository: FalstaffVoiceRepository,
+    onContinue: () -> Unit,
+) {
+    val introBeat = lesson.storyIntro?.firstOrNull()
+    val introText = introBeat?.text ?: "Сначала разберём теорию, потом — практика."
+    val introBeatId = introBeat?.id ?: "${lesson.id}-theory-intro"
+    var voiceSource by remember(lesson.id) { mutableStateOf(VoiceSource.None) }
+
+    LaunchedEffect(lesson.id, introBeatId) {
+        voiceRepository.speak(lesson.id, introBeatId, introText, introBeat?.audioUrl)
+        voiceSource = voiceRepository.lastSource
+    }
+    DisposableEffect(Unit) {
+        onDispose { voiceRepository.stop() }
+    }
+
     LessonScrollableContent(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text("📖", fontSize = 48.sp)
-            Text(lesson.title, color = Foreground, fontWeight = FontWeight.Black, fontSize = 20.sp, modifier = Modifier.padding(vertical = 16.dp))
+            Text("Теория", color = MutedForeground, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+            Text(lesson.title, color = Foreground, fontWeight = FontWeight.Black, fontSize = 22.sp, modifier = Modifier.padding(top = 4.dp, bottom = 16.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.falstaff),
+                    contentDescription = "Фальстаф",
+                    modifier = Modifier.size(88.dp),
+                    contentScale = ContentScale.Fit,
+                )
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(Card)
+                        .padding(16.dp),
+                ) {
+                    Text(introText, color = Foreground, fontWeight = FontWeight.SemiBold, fontSize = 14.sp, lineHeight = 20.sp)
+                }
+            }
+
+            if (voiceSource == VoiceSource.AndroidTts) {
+                Text(
+                    "Озвучка: системный голос. Для голоса ElevenLabs задеплойте falstaff-tts и задайте ELEVENLABS_API_KEY.",
+                    color = MutedForeground,
+                    fontSize = 11.sp,
+                    lineHeight = 16.sp,
+                    modifier = Modifier.padding(top = 8.dp),
+                )
+            }
+
+            Text("📖 Материал урока", color = Primary, fontWeight = FontWeight.Black, fontSize = 14.sp, modifier = Modifier.padding(top = 20.dp, bottom = 8.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -242,7 +297,10 @@ private fun TheoryPhase(lesson: Lesson, onContinue: () -> Unit) {
                     lineHeight = 22.sp,
                 )
             }
-            PrimaryButton("ПРОДОЛЖИТЬ", onContinue, modifier = Modifier.padding(top = 24.dp))
+            PrimaryButton("К ПРАКТИКЕ", onClick = {
+                voiceRepository.stop()
+                onContinue()
+            }, modifier = Modifier.padding(top = 24.dp))
         }
     }
 }

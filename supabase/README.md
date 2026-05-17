@@ -76,10 +76,13 @@ update public.profiles set role = 'admin' where id = 'ваш-uuid';
 2. Задайте секреты в Supabase: **Project Settings → Edge Functions → Secrets**:
    - `ELEVENLABS_API_KEY`
    - `ELEVENLABS_VOICE_ID` (опционально, иначе дефолтный голос)
-3. Деплой функции: `npx supabase functions deploy falstaff-tts`
+3. Деплой функции (с `verify_jwt = false` в `functions/falstaff-tts/config.toml`):
+   `npx supabase functions deploy falstaff-tts`
 4. Примените миграцию `20250517000006_lesson_story.sql` (`npx supabase db push`).
 
-Без ключа ElevenLabs приложение использует **Android TextToSpeech** (fallback).
+Без ключа ElevenLabs приложение использует **Android TextToSpeech** (fallback). На экране теории подсказка появится, если играет системный голос.
+
+Проверка: в Logcat фильтр `FalstaffVoice` — ошибки HTTP или «ElevenLabs unavailable».
 
 ## Android
 
