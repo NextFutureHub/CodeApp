@@ -94,6 +94,7 @@ fun CodeLingoAppContent(app: CodeLingoApp) {
                 settingsViewModel = settingsViewModel,
                 courseRepository = app.courseRepository,
                 authViewModel = authViewModel,
+                voiceRepository = app.falstaffVoiceRepository,
             )
         }
     }
@@ -105,6 +106,7 @@ private fun CodeLingoAppContentInner(
     settingsViewModel: SettingsViewModel,
     courseRepository: com.codelingo.app.data.CourseRepository,
     authViewModel: AuthViewModel,
+    voiceRepository: com.codelingo.app.data.voice.FalstaffVoiceRepository,
 ) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -178,6 +180,7 @@ private fun CodeLingoAppContentInner(
                             state = gameState,
                             courseRepository = courseRepository,
                             gameViewModel = gameViewModel,
+                            voiceRepository = voiceRepository,
                             onBack = { navController.popBackStack() },
                         )
                     }

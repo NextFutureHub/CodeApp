@@ -47,7 +47,16 @@ data class Lesson(
     val xpReward: Int,
     val tasks: List<Task>,
     val theory: String? = null,
+    val storyIntro: List<StoryBeat>? = null,
+    val storyOutro: List<StoryBeat>? = null,
+    val miniScene: MiniScene? = null,
 )
+
+fun Lesson.hasStoryIntro(): Boolean = !storyIntro.isNullOrEmpty()
+
+fun Lesson.hasStoryOutro(): Boolean = !storyOutro.isNullOrEmpty()
+
+fun Lesson.hasMiniScene(): Boolean = miniScene != null && !miniScene!!.hotspots.isEmpty()
 
 @Serializable
 data class CourseLevel(

@@ -1,1 +1,2816 @@
-[{"id":"html","title":"HTML","icon":"🌐","color":"232 78% 55%","levels":[{"id":"html-basics","title":"Основы HTML","lessons":[{"id":"html-1","title":"Что такое HTML?","description":"Знакомство с HTML","xpReward":15,"theory":"HTML (HyperText Markup Language) — язык разметки для создания веб-страниц. Каждый элемент оборачивается в теги: <тег>содержимое</тег>","tasks":[{"id":"html-1-1","type":"quiz","question":"Что означает HTML?","options":["HyperText Markup Language","High Tech Modern Language","Home Tool Markup Language","Hyper Transfer Markup Language"],"correctAnswer":"HyperText Markup Language"},{"id":"html-1-2","type":"quiz","question":"Какой тег используется для параграфа?","options":["<p>","<div>","<span>","<text>"],"correctAnswer":"<p>"},{"id":"html-1-3","type":"blocks","question":"Собери HTML-элемент параграфа с текстом 'Привет'","blocks":["</p>","Привет","<p>"],"correctOrder":["<p>","Привет","</p>"]},{"id":"html-1-4","type":"match","question":"Соедини HTML-тег с его назначением","pairs":[{"left":"<p>","right":"Параграф"},{"left":"<h1>","right":"Главный заголовок"},{"left":"<a>","right":"Ссылка"}]}]},{"id":"html-2","title":"Теги и элементы","description":"Открывающие и закрывающие теги","xpReward":20,"theory":"Большинство HTML-элементов имеют открывающий <тег> и закрывающий </тег>. Некоторые теги самозакрывающиеся: <br>, <img>, <hr>","tasks":[{"id":"html-2-1","type":"quiz","question":"Какой тег является самозакрывающимся?","options":["<br>","<p>","<div>","<span>"],"correctAnswer":"<br>"},{"id":"html-2-2","type":"debug","question":"Найди и исправь ошибку в HTML-коде","buggyCode":"<h1>Заголовок<h1>","fixedCode":"<h1>Заголовок</h1>"},{"id":"html-2-3","type":"blocks","question":"Собери заголовок h1 с текстом 'Мой сайт'","blocks":["</h1>","<h1>","Мой сайт"],"correctOrder":["<h1>","Мой сайт","</h1>"]}]},{"id":"html-3","title":"Заголовки","description":"Теги h1–h6","xpReward":20,"theory":"В HTML есть 6 уровней заголовков: от <h1> (самый главный) до <h6> (самый маленький). На странице обычно один <h1>.","tasks":[{"id":"html-3-1","type":"quiz","question":"Какой заголовок самый важный?","options":["<h1>","<h6>","<h3>","<header>"],"correctAnswer":"<h1>"},{"id":"html-3-2","type":"code","question":"Напиши заголовок второго уровня с текстом 'Обо мне'","starterCode":"","expectedOutput":"<h2>Обо мне</h2>","hint":"Используй тег <h2>"},{"id":"html-3-3","type":"blocks","question":"Расставь заголовки в правильном порядке по важности","blocks":["<h3>","<h1>","<h2>"],"correctOrder":["<h1>","<h2>","<h3>"]}]},{"id":"html-4","title":"Ссылки и изображения","description":"Теги <a> и <img>","xpReward":25,"theory":"Ссылки создаются тегом <a href=\"url\">текст</a>. Изображения — тегом <img src=\"url\" alt=\"описание\">. Тег <img> самозакрывающийся.","tasks":[{"id":"html-4-1","type":"quiz","question":"Какой атрибут задаёт адрес ссылки?","options":["href","src","link","url"],"correctAnswer":"href"},{"id":"html-4-2","type":"quiz","question":"Какой атрибут <img> описывает картинку для скринридеров?","options":["alt","title","desc","label"],"correctAnswer":"alt"},{"id":"html-4-3","type":"blocks","question":"Собери тег ссылки на google.com","blocks":["</a>","Google","<a href=\"https://google.com\">"],"correctOrder":["<a href=\"https://google.com\">","Google","</a>"]},{"id":"html-4-4","type":"fill","question":"Заполни пропуски в ссылке","textParts":["<a ","=\"https://example.com\">","</a>"],"fillOptions":["href","src","Документация","Картинка"],"correctFill":["href","Документация"]}]},{"id":"html-5","title":"Списки","description":"Нумерованные и маркированные","xpReward":25,"theory":"Маркированный список: <ul><li>элемент</li></ul>. Нумерованный: <ol><li>элемент</li></ol>.","tasks":[{"id":"html-5-1","type":"quiz","question":"Какой тег создаёт маркированный список?","options":["<ul>","<ol>","<li>","<list>"],"correctAnswer":"<ul>"},{"id":"html-5-2","type":"debug","question":"Исправь ошибку в списке","buggyCode":"<ul><li>Один<li>Два</li></ul>","fixedCode":"<ul><li>Один</li><li>Два</li></ul>"},{"id":"html-5-3","type":"blocks","question":"Собери маркированный список из 2 элементов","blocks":["</ul>","<li>Два</li>","<ul>","<li>Один</li>"],"correctOrder":["<ul>","<li>Один</li>","<li>Два</li>","</ul>"]}]},{"id":"html-6","title":"Кнопки и формы","description":"input, button, form","xpReward":30,"theory":"Формы нужны для ввода данных пользователем. Основные теги: <form>, <input>, <button>. Поле ввода может иметь атрибут type, например text, email или password.","tasks":[{"id":"html-6-1","type":"quiz","question":"Какой тег создаёт поле ввода?","options":["<input>","<button>","<label>","<textarea/>"],"correctAnswer":"<input>"},{"id":"html-6-2","type":"fill","question":"Заполни пропуски в кнопке отправки формы","textParts":["<button ","=\"submit\">","</button>"],"fillOptions":["type","href","Отправить","Картинка"],"correctFill":["type","Отправить"]},{"id":"html-6-3","type":"blocks","question":"Собери простую форму с одним полем","blocks":["</form>","<input type=\"text\">","<form>"],"correctOrder":["<form>","<input type=\"text\">","</form>"]},{"id":"html-6-4","type":"match","question":"Соедини тег формы с назначением","pairs":[{"left":"<form>","right":"Оборачивает элементы формы"},{"left":"<input>","right":"Поле ввода"},{"left":"<button>","right":"Кнопка действия"}]}]},{"id":"html-7","title":"Семантические теги","description":"header, main, footer, nav","xpReward":30,"theory":"Семантические теги помогают описывать структуру страницы понятнее: <header> для верхней части, <nav> для навигации, <main> для основного контента, <footer> для подвала.","tasks":[{"id":"html-7-1","type":"quiz","question":"Какой тег обычно содержит главное содержимое страницы?","options":["<main>","<footer>","<aside>","<title>"],"correctAnswer":"<main>"},{"id":"html-7-2","type":"match","question":"Соедини семантический тег и его роль","pairs":[{"left":"<header>","right":"Верхняя часть страницы"},{"left":"<nav>","right":"Блок навигации"},{"left":"<footer>","right":"Нижняя часть страницы"}]},{"id":"html-7-3","type":"debug","question":"Исправь ошибку в семантической разметке","buggyCode":"<main><h1>Статья</h2></main>","fixedCode":"<main><h1>Статья</h1></main>"},{"id":"html-7-4","type":"blocks","question":"Собери каркас страницы из семантических тегов","blocks":["<main></main>","<footer></footer>","<header></header>"],"correctOrder":["<header></header>","<main></main>","<footer></footer>"]}]}]}]},{"id":"css","title":"CSS","icon":"🎨","color":"280 70% 55%","levels":[{"id":"css-basics","title":"Основы CSS","lessons":[{"id":"css-1","title":"Что такое CSS?","description":"Стилизация страниц","xpReward":15,"theory":"CSS (Cascading Style Sheets) — язык стилей для оформления HTML-страниц. Стили задаются в формате: свойство: значение;","tasks":[{"id":"css-1-1","type":"quiz","question":"Что означает CSS?","options":["Cascading Style Sheets","Creative Style System","Computer Style Sheets","Colorful Style Sheets"],"correctAnswer":"Cascading Style Sheets"},{"id":"css-1-2","type":"quiz","question":"Какое свойство задаёт цвет текста?","options":["color","text-color","font-color","foreground"],"correctAnswer":"color"},{"id":"css-1-3","type":"code","question":"Напиши CSS-правило, делающее текст красным","starterCode":"p { }","expectedOutput":"color: red;","hint":"Используй свойство color"}]},{"id":"css-2","title":"Селекторы","description":"Классы и ID","xpReward":20,"theory":"Селекторы выбирают элементы для стилизации. По тегу: p { }. По классу: .класс { }. По ID: #id { }.","tasks":[{"id":"css-2-1","type":"quiz","question":"Как обратиться к элементу с классом 'title'?","options":[".title","#title","title","@title"],"correctAnswer":".title"},{"id":"css-2-2","type":"quiz","question":"Какой символ используется для ID-селектора?","options":["#",".","@","&"],"correctAnswer":"#"},{"id":"css-2-3","type":"blocks","question":"Собери CSS-правило для класса 'btn'","blocks":["}","background: blue;",".btn {"],"correctOrder":[".btn {","background: blue;","}"]},{"id":"css-2-4","type":"match","question":"Соедини селектор с тем, что он выбирает","pairs":[{"left":".card","right":"Элемент с классом"},{"left":"#header","right":"Элемент с ID"},{"left":"p","right":"Все теги параграфа"}]}]},{"id":"css-3","title":"Размеры и отступы","description":"margin, padding, width, height","xpReward":20,"theory":"margin — внешний отступ, padding — внутренний. Width и height задают размеры. Можно использовать px, %, em, rem.","tasks":[{"id":"css-3-1","type":"quiz","question":"Какое свойство задаёт внутренний отступ?","options":["padding","margin","spacing","indent"],"correctAnswer":"padding"},{"id":"css-3-2","type":"code","question":"Задай элементу внешний отступ 20px со всех сторон","starterCode":".box { }","expectedOutput":"margin: 20px;","hint":"Используй свойство margin"},{"id":"css-3-3","type":"debug","question":"Исправь ошибку в CSS","buggyCode":".box { maring: 10px; }","fixedCode":".box { margin: 10px; }"},{"id":"css-3-4","type":"fill","question":"Вставь нужные свойства в CSS-правило","textParts":[".box { ",": 12px; ",": 24px; }"],"fillOptions":["padding","margin","display","color"],"correctFill":["padding","margin"]}]},{"id":"css-4","title":"Цвета и фон","description":"color, background, hex","xpReward":25,"theory":"Для оформления текста и блоков часто используют color и background-color. Цвет можно задавать словами, hex-значениями вроде #ff0000 или rgb().","tasks":[{"id":"css-4-1","type":"quiz","question":"Какое свойство меняет фон элемента?","options":["background-color","font-color","bg","fill"],"correctAnswer":"background-color"},{"id":"css-4-2","type":"code","question":"Сделай фон блока синим","starterCode":".card { }","expectedOutput":"background-color: blue;","hint":"Используй background-color"},{"id":"css-4-3","type":"fill","question":"Вставь свойства для цвета текста и фона","textParts":[".hero { ",": white; ",": black; }"],"fillOptions":["color","background-color","margin","font-size"],"correctFill":["color","background-color"]},{"id":"css-4-4","type":"match","question":"Соедини CSS-свойство и его эффект","pairs":[{"left":"color","right":"Цвет текста"},{"left":"background-color","right":"Цвет фона"},{"left":"border-color","right":"Цвет рамки"}]}]},{"id":"css-5","title":"Flexbox","description":"display: flex и выравнивание","xpReward":30,"theory":"Flexbox помогает выстраивать элементы в строку или колонку. Основные свойства: display: flex, justify-content, align-items, flex-direction.","tasks":[{"id":"css-5-1","type":"quiz","question":"Какое значение нужно задать display, чтобы включить Flexbox?","options":["flex","block","grid","inline"],"correctAnswer":"flex"},{"id":"css-5-2","type":"debug","question":"Исправь ошибку в flex-правиле","buggyCode":".row { display flex; }","fixedCode":".row { display: flex; }"},{"id":"css-5-3","type":"match","question":"Соедини flex-свойство и его назначение","pairs":[{"left":"justify-content","right":"Выравнивание по главной оси"},{"left":"align-items","right":"Выравнивание по поперечной оси"},{"left":"flex-direction","right":"Направление элементов"}]},{"id":"css-5-4","type":"blocks","question":"Собери базовое flex-правило","blocks":["display: flex;",".container {","}"],"correctOrder":[".container {","display: flex;","}"]}]}]}]},{"id":"js","title":"JavaScript","icon":"⚡","color":"48 89% 50%","levels":[{"id":"js-basics","title":"Основы JS","lessons":[{"id":"js-1","title":"Переменные","description":"let, const, var","xpReward":15,"theory":"Переменные хранят данные. let — изменяемая, const — константа. var — устаревший способ. Пример: let name = 'Мир';","tasks":[{"id":"js-1-1","type":"quiz","question":"Какое ключевое слово создаёт неизменяемую переменную?","options":["const","let","var","fixed"],"correctAnswer":"const"},{"id":"js-1-2","type":"code","question":"Создай переменную age со значением 18","starterCode":"","expectedOutput":"let age = 18;","hint":"Используй let"},{"id":"js-1-3","type":"blocks","question":"Собери объявление константы name = 'JS'","blocks":["'JS';","name =","const"],"correctOrder":["const","name =","'JS';"]}]},{"id":"js-2","title":"Типы данных","description":"string, number, boolean","xpReward":20,"theory":"Основные типы: string (текст), number (число), boolean (true/false). typeof показывает тип переменной.","tasks":[{"id":"js-2-1","type":"quiz","question":"Какой тип у значения 'hello'?","options":["string","text","char","word"],"correctAnswer":"string"},{"id":"js-2-2","type":"quiz","question":"Чему равно typeof 42?","options":["number","integer","digit","int"],"correctAnswer":"number"},{"id":"js-2-3","type":"quiz","question":"Какое значение НЕ является boolean?","options":["'true'","true","false","!true"],"correctAnswer":"'true'"},{"id":"js-2-4","type":"match","question":"Соедини тип данных с примером значения","pairs":[{"left":"string","right":"'hello'"},{"left":"number","right":"42"},{"left":"boolean","right":"false"}]}]},{"id":"js-3","title":"Условия","description":"if, else, else if","xpReward":25,"theory":"Условные операторы позволяют выполнять код по условию. if (условие) { ... } else { ... }","tasks":[{"id":"js-3-1","type":"quiz","question":"Что выведет: if (5 > 3) { 'да' } else { 'нет' }?","options":["'да'","'нет'","undefined","ошибка"],"correctAnswer":"'да'"},{"id":"js-3-2","type":"debug","question":"Найди ошибку в условии","buggyCode":"if x > 5 { console.log('big'); }","fixedCode":"if (x > 5) { console.log('big'); }"},{"id":"js-3-3","type":"blocks","question":"Собери условие if-else","blocks":["} else {","if (x > 0) {","'отрицательное';","'положительное';","}"],"correctOrder":["if (x > 0) {","'положительное';","} else {","'отрицательное';","}"]},{"id":"js-3-4","type":"fill","question":"Заполни пропуски в условии JavaScript","textParts":["if (score "," 10) { ","('win'); }"],"fillOptions":["===","=","console.log","prompt"],"correctFill":["===","console.log"]}]},{"id":"js-4","title":"Функции","description":"function и параметры","xpReward":30,"theory":"Функции позволяют переиспользовать код. Они могут принимать параметры и возвращать результат. Пример: function greet(name) { return 'Привет, ' + name; }","tasks":[{"id":"js-4-1","type":"quiz","question":"Какое ключевое слово используется для объявления функции?","options":["function","func","def","method"],"correctAnswer":"function"},{"id":"js-4-2","type":"code","question":"Создай функцию hello без параметров","starterCode":"","expectedOutput":"function hello()","hint":"Начни с function hello()"},{"id":"js-4-3","type":"fill","question":"Заполни пропуски в функции","textParts":["function sum(a, b) { "," a + b; }"],"fillOptions":["return","console.log","sum","if"],"correctFill":["return"]},{"id":"js-4-4","type":"match","question":"Соедини часть функции с ее ролью","pairs":[{"left":"function","right":"Объявляет функцию"},{"left":"(name)","right":"Параметр функции"},{"left":"return","right":"Возвращает результат"}]}]},{"id":"js-5","title":"Массивы","description":"array и доступ по индексу","xpReward":30,"theory":"Массив хранит несколько значений в одном месте. Элементы записываются в квадратных скобках, например: ['HTML', 'CSS', 'JS']. Первый элемент имеет индекс 0.","tasks":[{"id":"js-5-1","type":"quiz","question":"Как записывается массив в JavaScript?","options":["[1, 2, 3]","{1, 2, 3}","(1, 2, 3)","<1, 2, 3>"],"correctAnswer":"[1, 2, 3]"},{"id":"js-5-2","type":"blocks","question":"Собери массив из трех технологий","blocks":["'JS']","['HTML',","'CSS',"],"correctOrder":["['HTML',","'CSS',","'JS']"]},{"id":"js-5-3","type":"debug","question":"Исправь ошибку в доступе к элементу массива","buggyCode":"const first = items(0);","fixedCode":"const first = items[0];"},{"id":"js-5-4","type":"match","question":"Соедини пример массива и описание","pairs":[{"left":"items[0]","right":"Первый элемент массива"},{"left":"items.length","right":"Количество элементов"},{"left":"[]","right":"Пустой массив"}]}]}]}]}]
+[
+  {
+    "id": "html",
+    "title": "HTML",
+    "icon": "🌐",
+    "color": "232 78% 55%",
+    "levels": [
+      {
+        "id": "html-basics",
+        "title": "Основы HTML",
+        "lessons": [
+          {
+            "id": "html-1",
+            "title": "Что такое HTML?",
+            "description": "Знакомство с HTML",
+            "xpReward": 15,
+            "theory": "HTML (HyperText Markup Language) — язык разметки для создания веб-страниц. Каждый элемент оборачивается в теги: <тег>содержимое</тег>",
+            "tasks": [
+              {
+                "id": "html-1-1",
+                "type": "quiz",
+                "question": "Что означает HTML?",
+                "options": [
+                  "HyperText Markup Language",
+                  "High Tech Modern Language",
+                  "Home Tool Markup Language",
+                  "Hyper Transfer Markup Language"
+                ],
+                "correctAnswer": "HyperText Markup Language"
+              },
+              {
+                "id": "html-1-2",
+                "type": "quiz",
+                "question": "Какой тег используется для параграфа?",
+                "options": [
+                  "<p>",
+                  "<div>",
+                  "<span>",
+                  "<text>"
+                ],
+                "correctAnswer": "<p>"
+              },
+              {
+                "id": "html-1-3",
+                "type": "blocks",
+                "question": "Собери HTML-элемент параграфа с текстом 'Привет'",
+                "blocks": [
+                  "</p>",
+                  "Привет",
+                  "<p>"
+                ],
+                "correctOrder": [
+                  "<p>",
+                  "Привет",
+                  "</p>"
+                ]
+              },
+              {
+                "id": "html-1-4",
+                "type": "match",
+                "question": "Соедини HTML-тег с его назначением",
+                "pairs": [
+                  {
+                    "left": "<p>",
+                    "right": "Параграф"
+                  },
+                  {
+                    "left": "<h1>",
+                    "right": "Главный заголовок"
+                  },
+                  {
+                    "left": "<a>",
+                    "right": "Ссылка"
+                  }
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "html-1-intro-1",
+                "speaker": "falstaff",
+                "text": "Привет! Я Фальстаф, твой проводник в мир HTML.",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-1-intro-2",
+                "speaker": "falstaff",
+                "text": "Сегодня узнаем, что такое теги и зачем они нужны.",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "html-1-outro-1",
+                "speaker": "falstaff",
+                "text": "Отлично! Ты освоил основы HTML.",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-1-outro-2",
+                "speaker": "falstaff",
+                "text": "Впереди ещё много приключений в коде!",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Лаборатория Фальстафа",
+              "subtitle": "Нажми на объекты и закрепи урок",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "html-1-spot-1",
+                  "label": "Тег",
+                  "x": 0.22,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "m1",
+                    "type": "quiz",
+                    "question": "HTML — это язык…",
+                    "options": [
+                      "разметки",
+                      "программирования"
+                    ],
+                    "correctAnswer": "разметки"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-1-spot-2",
+                  "label": "Книга",
+                  "x": 0.5,
+                  "y": 0.42,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "m2",
+                    "type": "quiz",
+                    "question": "Параграф создаёт тег…",
+                    "options": [
+                      "<p>",
+                      "<div>"
+                    ],
+                    "correctAnswer": "<p>"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-1-spot-3",
+                  "label": "Дверь",
+                  "x": 0.78,
+                  "y": 0.58,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "m3",
+                    "type": "blocks",
+                    "question": "Собери <p>Привет</p>",
+                    "blocks": [
+                      "<p>",
+                      "Привет",
+                      "</p>"
+                    ],
+                    "correctOrder": [
+                      "<p>",
+                      "Привет",
+                      "</p>"
+                    ]
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "html-2",
+            "title": "Теги и элементы",
+            "description": "Открывающие и закрывающие теги",
+            "xpReward": 20,
+            "theory": "Большинство HTML-элементов имеют открывающий <тег> и закрывающий </тег>. Некоторые теги самозакрывающиеся: <br>, <img>, <hr>",
+            "tasks": [
+              {
+                "id": "html-2-1",
+                "type": "quiz",
+                "question": "Какой тег является самозакрывающимся?",
+                "options": [
+                  "<br>",
+                  "<p>",
+                  "<div>",
+                  "<span>"
+                ],
+                "correctAnswer": "<br>"
+              },
+              {
+                "id": "html-2-2",
+                "type": "debug",
+                "question": "Найди и исправь ошибку в HTML-коде",
+                "buggyCode": "<h1>Заголовок<h1>",
+                "fixedCode": "<h1>Заголовок</h1>"
+              },
+              {
+                "id": "html-2-3",
+                "type": "blocks",
+                "question": "Собери заголовок h1 с текстом 'Мой сайт'",
+                "blocks": [
+                  "</h1>",
+                  "<h1>",
+                  "Мой сайт"
+                ],
+                "correctOrder": [
+                  "<h1>",
+                  "Мой сайт",
+                  "</h1>"
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "html-2-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Теги и элементы» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-2-intro-2",
+                "speaker": "falstaff",
+                "text": "Открывающие и закрывающие теги",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "html-2-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Теги и элементы» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-2-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Теги и элементы",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "html-2-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-2-ma",
+                    "type": "quiz",
+                    "question": "Какой тег является самозакрывающимся?",
+                    "options": [
+                      "<br>",
+                      "<p>",
+                      "<div>",
+                      "<span>"
+                    ],
+                    "correctAnswer": "<br>"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-2-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-2-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Теги и элементы?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-2-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-2-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "html-3",
+            "title": "Заголовки",
+            "description": "Теги h1–h6",
+            "xpReward": 20,
+            "theory": "В HTML есть 6 уровней заголовков: от <h1> (самый главный) до <h6> (самый маленький). На странице обычно один <h1>.",
+            "tasks": [
+              {
+                "id": "html-3-1",
+                "type": "quiz",
+                "question": "Какой заголовок самый важный?",
+                "options": [
+                  "<h1>",
+                  "<h6>",
+                  "<h3>",
+                  "<header>"
+                ],
+                "correctAnswer": "<h1>"
+              },
+              {
+                "id": "html-3-2",
+                "type": "code",
+                "question": "Напиши заголовок второго уровня с текстом 'Обо мне'",
+                "starterCode": "",
+                "expectedOutput": "<h2>Обо мне</h2>",
+                "hint": "Используй тег <h2>"
+              },
+              {
+                "id": "html-3-3",
+                "type": "blocks",
+                "question": "Расставь заголовки в правильном порядке по важности",
+                "blocks": [
+                  "<h3>",
+                  "<h1>",
+                  "<h2>"
+                ],
+                "correctOrder": [
+                  "<h1>",
+                  "<h2>",
+                  "<h3>"
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "html-3-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Заголовки» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-3-intro-2",
+                "speaker": "falstaff",
+                "text": "Теги h1–h6",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "html-3-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Заголовки» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-3-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Заголовки",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "html-3-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-3-ma",
+                    "type": "quiz",
+                    "question": "Какой заголовок самый важный?",
+                    "options": [
+                      "<h1>",
+                      "<h6>",
+                      "<h3>",
+                      "<header>"
+                    ],
+                    "correctAnswer": "<h1>"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-3-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-3-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Заголовки?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-3-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-3-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "html-4",
+            "title": "Ссылки и изображения",
+            "description": "Теги <a> и <img>",
+            "xpReward": 25,
+            "theory": "Ссылки создаются тегом <a href=\"url\">текст</a>. Изображения — тегом <img src=\"url\" alt=\"описание\">. Тег <img> самозакрывающийся.",
+            "tasks": [
+              {
+                "id": "html-4-1",
+                "type": "quiz",
+                "question": "Какой атрибут задаёт адрес ссылки?",
+                "options": [
+                  "href",
+                  "src",
+                  "link",
+                  "url"
+                ],
+                "correctAnswer": "href"
+              },
+              {
+                "id": "html-4-2",
+                "type": "quiz",
+                "question": "Какой атрибут <img> описывает картинку для скринридеров?",
+                "options": [
+                  "alt",
+                  "title",
+                  "desc",
+                  "label"
+                ],
+                "correctAnswer": "alt"
+              },
+              {
+                "id": "html-4-3",
+                "type": "blocks",
+                "question": "Собери тег ссылки на google.com",
+                "blocks": [
+                  "</a>",
+                  "Google",
+                  "<a href=\"https://google.com\">"
+                ],
+                "correctOrder": [
+                  "<a href=\"https://google.com\">",
+                  "Google",
+                  "</a>"
+                ]
+              },
+              {
+                "id": "html-4-4",
+                "type": "fill",
+                "question": "Заполни пропуски в ссылке",
+                "textParts": [
+                  "<a ",
+                  "=\"https://example.com\">",
+                  "</a>"
+                ],
+                "fillOptions": [
+                  "href",
+                  "src",
+                  "Документация",
+                  "Картинка"
+                ],
+                "correctFill": [
+                  "href",
+                  "Документация"
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "html-4-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Ссылки и изображения» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-4-intro-2",
+                "speaker": "falstaff",
+                "text": "Теги <a> и <img>",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "html-4-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Ссылки и изображения» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-4-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Ссылки и изображения",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "html-4-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-4-ma",
+                    "type": "quiz",
+                    "question": "Какой атрибут задаёт адрес ссылки?",
+                    "options": [
+                      "href",
+                      "src",
+                      "link",
+                      "url"
+                    ],
+                    "correctAnswer": "href"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-4-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-4-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Ссылки и изображения?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-4-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-4-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "html-5",
+            "title": "Списки",
+            "description": "Нумерованные и маркированные",
+            "xpReward": 25,
+            "theory": "Маркированный список: <ul><li>элемент</li></ul>. Нумерованный: <ol><li>элемент</li></ol>.",
+            "tasks": [
+              {
+                "id": "html-5-1",
+                "type": "quiz",
+                "question": "Какой тег создаёт маркированный список?",
+                "options": [
+                  "<ul>",
+                  "<ol>",
+                  "<li>",
+                  "<list>"
+                ],
+                "correctAnswer": "<ul>"
+              },
+              {
+                "id": "html-5-2",
+                "type": "debug",
+                "question": "Исправь ошибку в списке",
+                "buggyCode": "<ul><li>Один<li>Два</li></ul>",
+                "fixedCode": "<ul><li>Один</li><li>Два</li></ul>"
+              },
+              {
+                "id": "html-5-3",
+                "type": "blocks",
+                "question": "Собери маркированный список из 2 элементов",
+                "blocks": [
+                  "</ul>",
+                  "<li>Два</li>",
+                  "<ul>",
+                  "<li>Один</li>"
+                ],
+                "correctOrder": [
+                  "<ul>",
+                  "<li>Один</li>",
+                  "<li>Два</li>",
+                  "</ul>"
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "html-5-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Списки» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-5-intro-2",
+                "speaker": "falstaff",
+                "text": "Нумерованные и маркированные",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "html-5-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Списки» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-5-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Списки",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "html-5-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-5-ma",
+                    "type": "quiz",
+                    "question": "Какой тег создаёт маркированный список?",
+                    "options": [
+                      "<ul>",
+                      "<ol>",
+                      "<li>",
+                      "<list>"
+                    ],
+                    "correctAnswer": "<ul>"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-5-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-5-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Списки?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-5-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-5-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "html-6",
+            "title": "Кнопки и формы",
+            "description": "input, button, form",
+            "xpReward": 30,
+            "theory": "Формы нужны для ввода данных пользователем. Основные теги: <form>, <input>, <button>. Поле ввода может иметь атрибут type, например text, email или password.",
+            "tasks": [
+              {
+                "id": "html-6-1",
+                "type": "quiz",
+                "question": "Какой тег создаёт поле ввода?",
+                "options": [
+                  "<input>",
+                  "<button>",
+                  "<label>",
+                  "<textarea/>"
+                ],
+                "correctAnswer": "<input>"
+              },
+              {
+                "id": "html-6-2",
+                "type": "fill",
+                "question": "Заполни пропуски в кнопке отправки формы",
+                "textParts": [
+                  "<button ",
+                  "=\"submit\">",
+                  "</button>"
+                ],
+                "fillOptions": [
+                  "type",
+                  "href",
+                  "Отправить",
+                  "Картинка"
+                ],
+                "correctFill": [
+                  "type",
+                  "Отправить"
+                ]
+              },
+              {
+                "id": "html-6-3",
+                "type": "blocks",
+                "question": "Собери простую форму с одним полем",
+                "blocks": [
+                  "</form>",
+                  "<input type=\"text\">",
+                  "<form>"
+                ],
+                "correctOrder": [
+                  "<form>",
+                  "<input type=\"text\">",
+                  "</form>"
+                ]
+              },
+              {
+                "id": "html-6-4",
+                "type": "match",
+                "question": "Соедини тег формы с назначением",
+                "pairs": [
+                  {
+                    "left": "<form>",
+                    "right": "Оборачивает элементы формы"
+                  },
+                  {
+                    "left": "<input>",
+                    "right": "Поле ввода"
+                  },
+                  {
+                    "left": "<button>",
+                    "right": "Кнопка действия"
+                  }
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "html-6-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Кнопки и формы» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-6-intro-2",
+                "speaker": "falstaff",
+                "text": "input, button, form",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "html-6-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Кнопки и формы» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-6-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Кнопки и формы",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "html-6-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-6-ma",
+                    "type": "quiz",
+                    "question": "Какой тег создаёт поле ввода?",
+                    "options": [
+                      "<input>",
+                      "<button>",
+                      "<label>",
+                      "<textarea/>"
+                    ],
+                    "correctAnswer": "<input>"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-6-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-6-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Кнопки и формы?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-6-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-6-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "html-7",
+            "title": "Семантические теги",
+            "description": "header, main, footer, nav",
+            "xpReward": 30,
+            "theory": "Семантические теги помогают описывать структуру страницы понятнее: <header> для верхней части, <nav> для навигации, <main> для основного контента, <footer> для подвала.",
+            "tasks": [
+              {
+                "id": "html-7-1",
+                "type": "quiz",
+                "question": "Какой тег обычно содержит главное содержимое страницы?",
+                "options": [
+                  "<main>",
+                  "<footer>",
+                  "<aside>",
+                  "<title>"
+                ],
+                "correctAnswer": "<main>"
+              },
+              {
+                "id": "html-7-2",
+                "type": "match",
+                "question": "Соедини семантический тег и его роль",
+                "pairs": [
+                  {
+                    "left": "<header>",
+                    "right": "Верхняя часть страницы"
+                  },
+                  {
+                    "left": "<nav>",
+                    "right": "Блок навигации"
+                  },
+                  {
+                    "left": "<footer>",
+                    "right": "Нижняя часть страницы"
+                  }
+                ]
+              },
+              {
+                "id": "html-7-3",
+                "type": "debug",
+                "question": "Исправь ошибку в семантической разметке",
+                "buggyCode": "<main><h1>Статья</h2></main>",
+                "fixedCode": "<main><h1>Статья</h1></main>"
+              },
+              {
+                "id": "html-7-4",
+                "type": "blocks",
+                "question": "Собери каркас страницы из семантических тегов",
+                "blocks": [
+                  "<main></main>",
+                  "<footer></footer>",
+                  "<header></header>"
+                ],
+                "correctOrder": [
+                  "<header></header>",
+                  "<main></main>",
+                  "<footer></footer>"
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "html-7-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Семантические теги» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-7-intro-2",
+                "speaker": "falstaff",
+                "text": "header, main, footer, nav",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "html-7-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Семантические теги» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "html-7-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Семантические теги",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "html-7-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-7-ma",
+                    "type": "quiz",
+                    "question": "Какой тег обычно содержит главное содержимое страницы?",
+                    "options": [
+                      "<main>",
+                      "<footer>",
+                      "<aside>",
+                      "<title>"
+                    ],
+                    "correctAnswer": "<main>"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-7-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-7-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Семантические теги?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "html-7-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "html-7-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "css",
+    "title": "CSS",
+    "icon": "🎨",
+    "color": "280 70% 55%",
+    "levels": [
+      {
+        "id": "css-basics",
+        "title": "Основы CSS",
+        "lessons": [
+          {
+            "id": "css-1",
+            "title": "Что такое CSS?",
+            "description": "Стилизация страниц",
+            "xpReward": 15,
+            "theory": "CSS (Cascading Style Sheets) — язык стилей для оформления HTML-страниц. Стили задаются в формате: свойство: значение;",
+            "tasks": [
+              {
+                "id": "css-1-1",
+                "type": "quiz",
+                "question": "Что означает CSS?",
+                "options": [
+                  "Cascading Style Sheets",
+                  "Creative Style System",
+                  "Computer Style Sheets",
+                  "Colorful Style Sheets"
+                ],
+                "correctAnswer": "Cascading Style Sheets"
+              },
+              {
+                "id": "css-1-2",
+                "type": "quiz",
+                "question": "Какое свойство задаёт цвет текста?",
+                "options": [
+                  "color",
+                  "text-color",
+                  "font-color",
+                  "foreground"
+                ],
+                "correctAnswer": "color"
+              },
+              {
+                "id": "css-1-3",
+                "type": "code",
+                "question": "Напиши CSS-правило, делающее текст красным",
+                "starterCode": "p { }",
+                "expectedOutput": "color: red;",
+                "hint": "Используй свойство color"
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "css-1-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Что такое CSS?» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "css-1-intro-2",
+                "speaker": "falstaff",
+                "text": "Стилизация страниц",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "css-1-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Что такое CSS?» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "css-1-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Что такое CSS?",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "css-1-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-1-ma",
+                    "type": "quiz",
+                    "question": "Что означает CSS?",
+                    "options": [
+                      "Cascading Style Sheets",
+                      "Creative Style System",
+                      "Computer Style Sheets",
+                      "Colorful Style Sheets"
+                    ],
+                    "correctAnswer": "Cascading Style Sheets"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "css-1-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-1-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Что такое CSS??",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "css-1-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-1-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "css-2",
+            "title": "Селекторы",
+            "description": "Классы и ID",
+            "xpReward": 20,
+            "theory": "Селекторы выбирают элементы для стилизации. По тегу: p { }. По классу: .класс { }. По ID: #id { }.",
+            "tasks": [
+              {
+                "id": "css-2-1",
+                "type": "quiz",
+                "question": "Как обратиться к элементу с классом 'title'?",
+                "options": [
+                  ".title",
+                  "#title",
+                  "title",
+                  "@title"
+                ],
+                "correctAnswer": ".title"
+              },
+              {
+                "id": "css-2-2",
+                "type": "quiz",
+                "question": "Какой символ используется для ID-селектора?",
+                "options": [
+                  "#",
+                  ".",
+                  "@",
+                  "&"
+                ],
+                "correctAnswer": "#"
+              },
+              {
+                "id": "css-2-3",
+                "type": "blocks",
+                "question": "Собери CSS-правило для класса 'btn'",
+                "blocks": [
+                  "}",
+                  "background: blue;",
+                  ".btn {"
+                ],
+                "correctOrder": [
+                  ".btn {",
+                  "background: blue;",
+                  "}"
+                ]
+              },
+              {
+                "id": "css-2-4",
+                "type": "match",
+                "question": "Соедини селектор с тем, что он выбирает",
+                "pairs": [
+                  {
+                    "left": ".card",
+                    "right": "Элемент с классом"
+                  },
+                  {
+                    "left": "#header",
+                    "right": "Элемент с ID"
+                  },
+                  {
+                    "left": "p",
+                    "right": "Все теги параграфа"
+                  }
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "css-2-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Селекторы» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "css-2-intro-2",
+                "speaker": "falstaff",
+                "text": "Классы и ID",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "css-2-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Селекторы» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "css-2-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Селекторы",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "css-2-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-2-ma",
+                    "type": "quiz",
+                    "question": "Как обратиться к элементу с классом 'title'?",
+                    "options": [
+                      ".title",
+                      "#title",
+                      "title",
+                      "@title"
+                    ],
+                    "correctAnswer": ".title"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "css-2-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-2-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Селекторы?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "css-2-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-2-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "css-3",
+            "title": "Размеры и отступы",
+            "description": "margin, padding, width, height",
+            "xpReward": 20,
+            "theory": "margin — внешний отступ, padding — внутренний. Width и height задают размеры. Можно использовать px, %, em, rem.",
+            "tasks": [
+              {
+                "id": "css-3-1",
+                "type": "quiz",
+                "question": "Какое свойство задаёт внутренний отступ?",
+                "options": [
+                  "padding",
+                  "margin",
+                  "spacing",
+                  "indent"
+                ],
+                "correctAnswer": "padding"
+              },
+              {
+                "id": "css-3-2",
+                "type": "code",
+                "question": "Задай элементу внешний отступ 20px со всех сторон",
+                "starterCode": ".box { }",
+                "expectedOutput": "margin: 20px;",
+                "hint": "Используй свойство margin"
+              },
+              {
+                "id": "css-3-3",
+                "type": "debug",
+                "question": "Исправь ошибку в CSS",
+                "buggyCode": ".box { maring: 10px; }",
+                "fixedCode": ".box { margin: 10px; }"
+              },
+              {
+                "id": "css-3-4",
+                "type": "fill",
+                "question": "Вставь нужные свойства в CSS-правило",
+                "textParts": [
+                  ".box { ",
+                  ": 12px; ",
+                  ": 24px; }"
+                ],
+                "fillOptions": [
+                  "padding",
+                  "margin",
+                  "display",
+                  "color"
+                ],
+                "correctFill": [
+                  "padding",
+                  "margin"
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "css-3-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Размеры и отступы» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "css-3-intro-2",
+                "speaker": "falstaff",
+                "text": "margin, padding, width, height",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "css-3-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Размеры и отступы» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "css-3-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Размеры и отступы",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "css-3-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-3-ma",
+                    "type": "quiz",
+                    "question": "Какое свойство задаёт внутренний отступ?",
+                    "options": [
+                      "padding",
+                      "margin",
+                      "spacing",
+                      "indent"
+                    ],
+                    "correctAnswer": "padding"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "css-3-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-3-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Размеры и отступы?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "css-3-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-3-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "css-4",
+            "title": "Цвета и фон",
+            "description": "color, background, hex",
+            "xpReward": 25,
+            "theory": "Для оформления текста и блоков часто используют color и background-color. Цвет можно задавать словами, hex-значениями вроде #ff0000 или rgb().",
+            "tasks": [
+              {
+                "id": "css-4-1",
+                "type": "quiz",
+                "question": "Какое свойство меняет фон элемента?",
+                "options": [
+                  "background-color",
+                  "font-color",
+                  "bg",
+                  "fill"
+                ],
+                "correctAnswer": "background-color"
+              },
+              {
+                "id": "css-4-2",
+                "type": "code",
+                "question": "Сделай фон блока синим",
+                "starterCode": ".card { }",
+                "expectedOutput": "background-color: blue;",
+                "hint": "Используй background-color"
+              },
+              {
+                "id": "css-4-3",
+                "type": "fill",
+                "question": "Вставь свойства для цвета текста и фона",
+                "textParts": [
+                  ".hero { ",
+                  ": white; ",
+                  ": black; }"
+                ],
+                "fillOptions": [
+                  "color",
+                  "background-color",
+                  "margin",
+                  "font-size"
+                ],
+                "correctFill": [
+                  "color",
+                  "background-color"
+                ]
+              },
+              {
+                "id": "css-4-4",
+                "type": "match",
+                "question": "Соедини CSS-свойство и его эффект",
+                "pairs": [
+                  {
+                    "left": "color",
+                    "right": "Цвет текста"
+                  },
+                  {
+                    "left": "background-color",
+                    "right": "Цвет фона"
+                  },
+                  {
+                    "left": "border-color",
+                    "right": "Цвет рамки"
+                  }
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "css-4-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Цвета и фон» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "css-4-intro-2",
+                "speaker": "falstaff",
+                "text": "color, background, hex",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "css-4-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Цвета и фон» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "css-4-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Цвета и фон",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "css-4-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-4-ma",
+                    "type": "quiz",
+                    "question": "Какое свойство меняет фон элемента?",
+                    "options": [
+                      "background-color",
+                      "font-color",
+                      "bg",
+                      "fill"
+                    ],
+                    "correctAnswer": "background-color"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "css-4-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-4-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Цвета и фон?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "css-4-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-4-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "css-5",
+            "title": "Flexbox",
+            "description": "display: flex и выравнивание",
+            "xpReward": 30,
+            "theory": "Flexbox помогает выстраивать элементы в строку или колонку. Основные свойства: display: flex, justify-content, align-items, flex-direction.",
+            "tasks": [
+              {
+                "id": "css-5-1",
+                "type": "quiz",
+                "question": "Какое значение нужно задать display, чтобы включить Flexbox?",
+                "options": [
+                  "flex",
+                  "block",
+                  "grid",
+                  "inline"
+                ],
+                "correctAnswer": "flex"
+              },
+              {
+                "id": "css-5-2",
+                "type": "debug",
+                "question": "Исправь ошибку в flex-правиле",
+                "buggyCode": ".row { display flex; }",
+                "fixedCode": ".row { display: flex; }"
+              },
+              {
+                "id": "css-5-3",
+                "type": "match",
+                "question": "Соедини flex-свойство и его назначение",
+                "pairs": [
+                  {
+                    "left": "justify-content",
+                    "right": "Выравнивание по главной оси"
+                  },
+                  {
+                    "left": "align-items",
+                    "right": "Выравнивание по поперечной оси"
+                  },
+                  {
+                    "left": "flex-direction",
+                    "right": "Направление элементов"
+                  }
+                ]
+              },
+              {
+                "id": "css-5-4",
+                "type": "blocks",
+                "question": "Собери базовое flex-правило",
+                "blocks": [
+                  "display: flex;",
+                  ".container {",
+                  "}"
+                ],
+                "correctOrder": [
+                  ".container {",
+                  "display: flex;",
+                  "}"
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "css-5-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Flexbox» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "css-5-intro-2",
+                "speaker": "falstaff",
+                "text": "display: flex и выравнивание",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "css-5-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Flexbox» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "css-5-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Flexbox",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "css-5-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-5-ma",
+                    "type": "quiz",
+                    "question": "Какое значение нужно задать display, чтобы включить Flexbox?",
+                    "options": [
+                      "flex",
+                      "block",
+                      "grid",
+                      "inline"
+                    ],
+                    "correctAnswer": "flex"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "css-5-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-5-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Flexbox?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "css-5-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "css-5-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "js",
+    "title": "JavaScript",
+    "icon": "⚡",
+    "color": "48 89% 50%",
+    "levels": [
+      {
+        "id": "js-basics",
+        "title": "Основы JS",
+        "lessons": [
+          {
+            "id": "js-1",
+            "title": "Переменные",
+            "description": "let, const, var",
+            "xpReward": 15,
+            "theory": "Переменные хранят данные. let — изменяемая, const — константа. var — устаревший способ. Пример: let name = 'Мир';",
+            "tasks": [
+              {
+                "id": "js-1-1",
+                "type": "quiz",
+                "question": "Какое ключевое слово создаёт неизменяемую переменную?",
+                "options": [
+                  "const",
+                  "let",
+                  "var",
+                  "fixed"
+                ],
+                "correctAnswer": "const"
+              },
+              {
+                "id": "js-1-2",
+                "type": "code",
+                "question": "Создай переменную age со значением 18",
+                "starterCode": "",
+                "expectedOutput": "let age = 18;",
+                "hint": "Используй let"
+              },
+              {
+                "id": "js-1-3",
+                "type": "blocks",
+                "question": "Собери объявление константы name = 'JS'",
+                "blocks": [
+                  "'JS';",
+                  "name =",
+                  "const"
+                ],
+                "correctOrder": [
+                  "const",
+                  "name =",
+                  "'JS';"
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "js-1-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Переменные» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "js-1-intro-2",
+                "speaker": "falstaff",
+                "text": "let, const, var",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "js-1-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Переменные» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "js-1-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Переменные",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "js-1-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-1-ma",
+                    "type": "quiz",
+                    "question": "Какое ключевое слово создаёт неизменяемую переменную?",
+                    "options": [
+                      "const",
+                      "let",
+                      "var",
+                      "fixed"
+                    ],
+                    "correctAnswer": "const"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "js-1-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-1-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Переменные?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "js-1-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-1-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "js-2",
+            "title": "Типы данных",
+            "description": "string, number, boolean",
+            "xpReward": 20,
+            "theory": "Основные типы: string (текст), number (число), boolean (true/false). typeof показывает тип переменной.",
+            "tasks": [
+              {
+                "id": "js-2-1",
+                "type": "quiz",
+                "question": "Какой тип у значения 'hello'?",
+                "options": [
+                  "string",
+                  "text",
+                  "char",
+                  "word"
+                ],
+                "correctAnswer": "string"
+              },
+              {
+                "id": "js-2-2",
+                "type": "quiz",
+                "question": "Чему равно typeof 42?",
+                "options": [
+                  "number",
+                  "integer",
+                  "digit",
+                  "int"
+                ],
+                "correctAnswer": "number"
+              },
+              {
+                "id": "js-2-3",
+                "type": "quiz",
+                "question": "Какое значение НЕ является boolean?",
+                "options": [
+                  "'true'",
+                  "true",
+                  "false",
+                  "!true"
+                ],
+                "correctAnswer": "'true'"
+              },
+              {
+                "id": "js-2-4",
+                "type": "match",
+                "question": "Соедини тип данных с примером значения",
+                "pairs": [
+                  {
+                    "left": "string",
+                    "right": "'hello'"
+                  },
+                  {
+                    "left": "number",
+                    "right": "42"
+                  },
+                  {
+                    "left": "boolean",
+                    "right": "false"
+                  }
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "js-2-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Типы данных» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "js-2-intro-2",
+                "speaker": "falstaff",
+                "text": "string, number, boolean",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "js-2-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Типы данных» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "js-2-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Типы данных",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "js-2-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-2-ma",
+                    "type": "quiz",
+                    "question": "Какой тип у значения 'hello'?",
+                    "options": [
+                      "string",
+                      "text",
+                      "char",
+                      "word"
+                    ],
+                    "correctAnswer": "string"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "js-2-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-2-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Типы данных?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "js-2-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-2-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "js-3",
+            "title": "Условия",
+            "description": "if, else, else if",
+            "xpReward": 25,
+            "theory": "Условные операторы позволяют выполнять код по условию. if (условие) { ... } else { ... }",
+            "tasks": [
+              {
+                "id": "js-3-1",
+                "type": "quiz",
+                "question": "Что выведет: if (5 > 3) { 'да' } else { 'нет' }?",
+                "options": [
+                  "'да'",
+                  "'нет'",
+                  "undefined",
+                  "ошибка"
+                ],
+                "correctAnswer": "'да'"
+              },
+              {
+                "id": "js-3-2",
+                "type": "debug",
+                "question": "Найди ошибку в условии",
+                "buggyCode": "if x > 5 { console.log('big'); }",
+                "fixedCode": "if (x > 5) { console.log('big'); }"
+              },
+              {
+                "id": "js-3-3",
+                "type": "blocks",
+                "question": "Собери условие if-else",
+                "blocks": [
+                  "} else {",
+                  "if (x > 0) {",
+                  "'отрицательное';",
+                  "'положительное';",
+                  "}"
+                ],
+                "correctOrder": [
+                  "if (x > 0) {",
+                  "'положительное';",
+                  "} else {",
+                  "'отрицательное';",
+                  "}"
+                ]
+              },
+              {
+                "id": "js-3-4",
+                "type": "fill",
+                "question": "Заполни пропуски в условии JavaScript",
+                "textParts": [
+                  "if (score ",
+                  " 10) { ",
+                  "('win'); }"
+                ],
+                "fillOptions": [
+                  "===",
+                  "=",
+                  "console.log",
+                  "prompt"
+                ],
+                "correctFill": [
+                  "===",
+                  "console.log"
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "js-3-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Условия» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "js-3-intro-2",
+                "speaker": "falstaff",
+                "text": "if, else, else if",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "js-3-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Условия» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "js-3-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Условия",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "js-3-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-3-ma",
+                    "type": "quiz",
+                    "question": "Что выведет: if (5 > 3) { 'да' } else { 'нет' }?",
+                    "options": [
+                      "'да'",
+                      "'нет'",
+                      "undefined",
+                      "ошибка"
+                    ],
+                    "correctAnswer": "'да'"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "js-3-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-3-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Условия?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "js-3-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-3-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "js-4",
+            "title": "Функции",
+            "description": "function и параметры",
+            "xpReward": 30,
+            "theory": "Функции позволяют переиспользовать код. Они могут принимать параметры и возвращать результат. Пример: function greet(name) { return 'Привет, ' + name; }",
+            "tasks": [
+              {
+                "id": "js-4-1",
+                "type": "quiz",
+                "question": "Какое ключевое слово используется для объявления функции?",
+                "options": [
+                  "function",
+                  "func",
+                  "def",
+                  "method"
+                ],
+                "correctAnswer": "function"
+              },
+              {
+                "id": "js-4-2",
+                "type": "code",
+                "question": "Создай функцию hello без параметров",
+                "starterCode": "",
+                "expectedOutput": "function hello()",
+                "hint": "Начни с function hello()"
+              },
+              {
+                "id": "js-4-3",
+                "type": "fill",
+                "question": "Заполни пропуски в функции",
+                "textParts": [
+                  "function sum(a, b) { ",
+                  " a + b; }"
+                ],
+                "fillOptions": [
+                  "return",
+                  "console.log",
+                  "sum",
+                  "if"
+                ],
+                "correctFill": [
+                  "return"
+                ]
+              },
+              {
+                "id": "js-4-4",
+                "type": "match",
+                "question": "Соедини часть функции с ее ролью",
+                "pairs": [
+                  {
+                    "left": "function",
+                    "right": "Объявляет функцию"
+                  },
+                  {
+                    "left": "(name)",
+                    "right": "Параметр функции"
+                  },
+                  {
+                    "left": "return",
+                    "right": "Возвращает результат"
+                  }
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "js-4-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Функции» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "js-4-intro-2",
+                "speaker": "falstaff",
+                "text": "function и параметры",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "js-4-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Функции» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "js-4-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Функции",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "js-4-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-4-ma",
+                    "type": "quiz",
+                    "question": "Какое ключевое слово используется для объявления функции?",
+                    "options": [
+                      "function",
+                      "func",
+                      "def",
+                      "method"
+                    ],
+                    "correctAnswer": "function"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "js-4-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-4-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Функции?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "js-4-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-4-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          },
+          {
+            "id": "js-5",
+            "title": "Массивы",
+            "description": "array и доступ по индексу",
+            "xpReward": 30,
+            "theory": "Массив хранит несколько значений в одном месте. Элементы записываются в квадратных скобках, например: ['HTML', 'CSS', 'JS']. Первый элемент имеет индекс 0.",
+            "tasks": [
+              {
+                "id": "js-5-1",
+                "type": "quiz",
+                "question": "Как записывается массив в JavaScript?",
+                "options": [
+                  "[1, 2, 3]",
+                  "{1, 2, 3}",
+                  "(1, 2, 3)",
+                  "<1, 2, 3>"
+                ],
+                "correctAnswer": "[1, 2, 3]"
+              },
+              {
+                "id": "js-5-2",
+                "type": "blocks",
+                "question": "Собери массив из трех технологий",
+                "blocks": [
+                  "'JS']",
+                  "['HTML',",
+                  "'CSS',"
+                ],
+                "correctOrder": [
+                  "['HTML',",
+                  "'CSS',",
+                  "'JS']"
+                ]
+              },
+              {
+                "id": "js-5-3",
+                "type": "debug",
+                "question": "Исправь ошибку в доступе к элементу массива",
+                "buggyCode": "const first = items(0);",
+                "fixedCode": "const first = items[0];"
+              },
+              {
+                "id": "js-5-4",
+                "type": "match",
+                "question": "Соедини пример массива и описание",
+                "pairs": [
+                  {
+                    "left": "items[0]",
+                    "right": "Первый элемент массива"
+                  },
+                  {
+                    "left": "items.length",
+                    "right": "Количество элементов"
+                  },
+                  {
+                    "left": "[]",
+                    "right": "Пустой массив"
+                  }
+                ]
+              }
+            ],
+            "storyIntro": [
+              {
+                "id": "js-5-intro-1",
+                "speaker": "falstaff",
+                "text": "Я Фальстаф. Урок «Массивы» — поехали!",
+                "emotion": "happy"
+              },
+              {
+                "id": "js-5-intro-2",
+                "speaker": "falstaff",
+                "text": "array и доступ по индексу",
+                "emotion": "think"
+              }
+            ],
+            "storyOutro": [
+              {
+                "id": "js-5-outro-1",
+                "speaker": "falstaff",
+                "text": "Урок «Массивы» пройден. Молодец!",
+                "emotion": "happy"
+              },
+              {
+                "id": "js-5-outro-2",
+                "speaker": "falstaff",
+                "text": "Готов к следующему вызову?",
+                "emotion": "celebrate",
+                "choices": [
+                  {
+                    "text": "Спасибо, Фальстаф!",
+                    "response": "Всегда пожалуйста. До следующего урока!"
+                  },
+                  {
+                    "text": "Было сложно!",
+                    "response": "Сложности закаляют кодера. Ты справился!"
+                  }
+                ]
+              }
+            ],
+            "miniScene": {
+              "title": "Мини-мир: Массивы",
+              "subtitle": "Исследуй точки на карте",
+              "background": "room",
+              "hotspots": [
+                {
+                  "id": "js-5-spot-1",
+                  "label": "А",
+                  "x": 0.25,
+                  "y": 0.5,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-5-ma",
+                    "type": "quiz",
+                    "question": "Как записывается массив в JavaScript?",
+                    "options": [
+                      "[1, 2, 3]",
+                      "{1, 2, 3}",
+                      "(1, 2, 3)",
+                      "<1, 2, 3>"
+                    ],
+                    "correctAnswer": "[1, 2, 3]"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "js-5-spot-2",
+                  "label": "Б",
+                  "x": 0.5,
+                  "y": 0.45,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-5-mb",
+                    "type": "quiz",
+                    "question": "Повтор: Массивы?",
+                    "options": [
+                      "Да",
+                      "Нет"
+                    ],
+                    "correctAnswer": "Да"
+                  },
+                  "doneLabel": "Готово"
+                },
+                {
+                  "id": "js-5-spot-3",
+                  "label": "В",
+                  "x": 0.75,
+                  "y": 0.55,
+                  "width": 0.16,
+                  "height": 0.14,
+                  "task": {
+                    "id": "js-5-mc",
+                    "type": "quiz",
+                    "question": "Готов дальше?",
+                    "options": [
+                      "Да!",
+                      "Ещё чуть"
+                    ],
+                    "correctAnswer": "Да!"
+                  },
+                  "doneLabel": "Готово"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -4,7 +4,6 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -39,7 +38,10 @@ import com.codelingo.app.data.model.GameState
 import com.codelingo.app.data.model.Lesson
 import com.codelingo.app.data.model.Task
 import com.codelingo.app.data.model.TaskType
+import com.codelingo.app.data.voice.FalstaffVoiceRepository
 import com.codelingo.app.ui.components.PrimaryButton
+import com.codelingo.app.ui.story.FalstaffStoryScreen
+import com.codelingo.app.ui.story.MiniWorldScreen
 import com.codelingo.app.ui.tasks.BlocksTask
 import com.codelingo.app.ui.tasks.CodeTask
 import com.codelingo.app.ui.tasks.DebugTask
@@ -54,6 +56,7 @@ import com.codelingo.app.ui.theme.Muted
 import com.codelingo.app.ui.theme.MutedForeground
 import com.codelingo.app.ui.theme.Primary
 import com.codelingo.app.ui.theme.Xp
+import com.codelingo.app.ui.theme.parseHslColor
 import com.codelingo.app.viewmodel.GameViewModel
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
@@ -63,12 +66,6 @@ private fun lessonXpEarned(xpReward: Int, correctCount: Int, taskCount: Int): In
     return (xpReward * (correctCount.toFloat() / taskCount)).roundToInt()
 }
 
-private sealed interface LessonPhase {
-    data object Theory : LessonPhase
-    data class TaskStep(val index: Int) : LessonPhase
-    data object Finished : LessonPhase
-}
-
 @Composable
 fun LessonScreen(
     courseId: String,
@@ -76,9 +73,13 @@ fun LessonScreen(
     state: GameState,
     courseRepository: CourseRepository,
     gameViewModel: GameViewModel,
+    voiceRepository: FalstaffVoiceRepository,
     onBack: () -> Unit,
 ) {
     val lesson = courseRepository.getLesson(courseId, lessonId)
+    val course = courseRepository.getCourse(courseId)
+    val accentColor = course?.let { parseHslColor(it.color) } ?: Primary
+
     if (lesson == null) {
         Box(Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
             Text("Урок не найден", color = Foreground)
@@ -87,38 +88,24 @@ fun LessonScreen(
     }
 
     val taskCount = lesson.tasks.size
-    var currentTask by remember(lessonId) { mutableIntStateOf(if (lesson.theory != null) -1 else 0) }
+    var stage by remember(lessonId) { mutableStateOf(lesson.initialStage()) }
+    var taskIndex by remember(lessonId) { mutableIntStateOf(0) }
     var correctCount by remember(lessonId) { mutableIntStateOf(0) }
     var advanceAfterAnswer by remember(lessonId) { mutableStateOf(false) }
 
-    LaunchedEffect(taskCount) {
-        if (currentTask > taskCount) currentTask = taskCount
-    }
-
-    LaunchedEffect(advanceAfterAnswer) {
+    LaunchedEffect(advanceAfterAnswer, taskCount) {
         if (!advanceAfterAnswer) return@LaunchedEffect
         delay(300)
         advanceAfterAnswer = false
-        currentTask = minOf(currentTask + 1, taskCount)
+        if (taskIndex < taskCount - 1) {
+            taskIndex++
+        } else {
+            stage = lesson.nextStageAfter(LessonStage.Task)
+        }
     }
 
-    val safeTaskIndex = currentTask.coerceIn(0, (taskCount - 1).coerceAtLeast(0))
-    val lessonPhase: LessonPhase = when {
-        currentTask < 0 -> LessonPhase.Theory
-        currentTask >= taskCount || taskCount == 0 -> LessonPhase.Finished
-        else -> LessonPhase.TaskStep(safeTaskIndex)
-    }
-    val progress = if (taskCount > 0) {
-        val completedSteps = when {
-            currentTask < 0 -> 0
-            currentTask >= taskCount -> taskCount
-            else -> currentTask + 1
-        }
-        (completedSteps.toFloat() / taskCount).coerceIn(0f, 1f)
-    } else {
-        1f
-    }
-    val progressAnim by animateFloatAsState(progress.coerceAtLeast(0.05f), animationSpec = tween(300))
+    val progress = lesson.progressFor(stage, taskIndex)
+    val progressAnim by animateFloatAsState(progress.coerceIn(0.05f, 1f), animationSpec = tween(300))
 
     Column(modifier = Modifier.fillMaxSize().background(Background)) {
         Row(
@@ -152,16 +139,53 @@ fun LessonScreen(
             }
         }
 
-        Crossfade(
-            targetState = lessonPhase,
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-            label = "lesson",
-        ) { phase ->
-            when (phase) {
-                LessonPhase.Theory -> TheoryPhase(lesson, onContinue = { currentTask = 0 })
-                LessonPhase.Finished -> FinishedPhase(
+        Crossfade(targetState = stage, modifier = Modifier.weight(1f).fillMaxWidth(), label = "lesson") { current ->
+            when (current) {
+                LessonStage.Theory -> TheoryPhase(lesson) { stage = lesson.nextStageAfter(LessonStage.Theory) }
+                LessonStage.StoryIntro -> FalstaffStoryScreen(
+                    lessonId = lesson.id,
+                    beats = lesson.storyIntro.orEmpty(),
+                    title = "Фальстаф зовёт в путь",
+                    voiceRepository = voiceRepository,
+                    onComplete = { stage = lesson.nextStageAfter(LessonStage.StoryIntro) },
+                )
+                LessonStage.Task -> {
+                    val task = lesson.tasks.getOrNull(taskIndex)
+                    if (task != null) {
+                        TaskContent(task = task, modifier = Modifier.fillMaxSize()) { correct ->
+                            if (correct) correctCount++
+                            else gameViewModel.loseLife()
+                            if (taskIndex < taskCount - 1 || taskCount > 0) {
+                                advanceAfterAnswer = true
+                            } else {
+                                stage = lesson.nextStageAfter(LessonStage.Task)
+                            }
+                        }
+                    } else {
+                        LaunchedEffect(Unit) { stage = lesson.nextStageAfter(LessonStage.Task) }
+                    }
+                }
+                LessonStage.MiniWorld -> {
+                    val scene = lesson.miniScene
+                    if (scene != null) {
+                        MiniWorldScreen(
+                            scene = scene,
+                            accentColor = accentColor,
+                            onComplete = { stage = lesson.nextStageAfter(LessonStage.MiniWorld) },
+                            onLoseLife = { gameViewModel.loseLife() },
+                        )
+                    } else {
+                        LaunchedEffect(Unit) { stage = lesson.nextStageAfter(LessonStage.MiniWorld) }
+                    }
+                }
+                LessonStage.StoryOutro -> FalstaffStoryScreen(
+                    lessonId = lesson.id,
+                    beats = lesson.storyOutro.orEmpty(),
+                    title = "Фальстаф подводит итог",
+                    voiceRepository = voiceRepository,
+                    onComplete = { stage = LessonStage.Finished },
+                )
+                LessonStage.Finished -> FinishedPhase(
                     lesson = lesson,
                     correctCount = correctCount,
                     onFinish = {
@@ -173,25 +197,6 @@ fun LessonScreen(
                         onBack()
                     },
                 )
-                is LessonPhase.TaskStep -> {
-                    val task = lesson.tasks.getOrNull(phase.index)
-                    if (task != null) {
-                        TaskContent(
-                            task = task,
-                            modifier = Modifier.fillMaxSize(),
-                        ) { correct ->
-                            if (correct) correctCount++
-                            else gameViewModel.loseLife()
-                            if (currentTask < taskCount) {
-                                advanceAfterAnswer = true
-                            }
-                        }
-                    } else {
-                        LaunchedEffect(Unit) {
-                            currentTask = taskCount
-                        }
-                    }
-                }
             }
         }
     }
@@ -237,7 +242,7 @@ private fun TheoryPhase(lesson: Lesson, onContinue: () -> Unit) {
                     lineHeight = 22.sp,
                 )
             }
-            PrimaryButton("ПРОДОЛЖИТЬ", onClick = onContinue, modifier = Modifier.padding(top = 24.dp))
+            PrimaryButton("ПРОДОЛЖИТЬ", onContinue, modifier = Modifier.padding(top = 24.dp))
         }
     }
 }
@@ -269,12 +274,11 @@ private fun FinishedPhase(lesson: Lesson, correctCount: Int, onFinish: () -> Uni
                     .background(Xp.copy(alpha = 0.1f))
                     .padding(horizontal = 24.dp, vertical = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Text("⚡", fontSize = 24.sp)
                 Text("+$earnedXp XP", color = Xp, fontWeight = FontWeight.Black, fontSize = 20.sp)
             }
-            PrimaryButton("ПРОДОЛЖИТЬ", onClick = onFinish)
+            PrimaryButton("ПРОДОЛЖИТЬ", onFinish)
         }
     }
 }
@@ -287,43 +291,12 @@ private fun TaskContent(
 ) {
     LessonScrollableContent(modifier = modifier) {
         when (task.type) {
-            TaskType.QUIZ -> QuizTask(
-                question = task.question,
-                options = task.options.orEmpty(),
-                correctAnswer = task.correctAnswer.orEmpty(),
-                onAnswer = onAnswer,
-            )
-            TaskType.BLOCKS -> BlocksTask(
-                question = task.question,
-                blocks = task.blocks.orEmpty(),
-                correctOrder = task.correctOrder.orEmpty(),
-                onAnswer = onAnswer,
-            )
-            TaskType.CODE -> CodeTask(
-                question = task.question,
-                starterCode = task.starterCode.orEmpty(),
-                expectedOutput = task.expectedOutput.orEmpty(),
-                hint = task.hint,
-                onAnswer = onAnswer,
-            )
-            TaskType.DEBUG -> DebugTask(
-                question = task.question,
-                buggyCode = task.buggyCode.orEmpty(),
-                fixedCode = task.fixedCode.orEmpty(),
-                onAnswer = onAnswer,
-            )
-            TaskType.MATCH -> MatchTask(
-                question = task.question,
-                pairs = task.pairs.orEmpty(),
-                onAnswer = onAnswer,
-            )
-            TaskType.FILL -> FillGapsTask(
-                question = task.question,
-                textParts = task.textParts.orEmpty(),
-                options = task.fillOptions.orEmpty(),
-                correctFill = task.correctFill.orEmpty(),
-                onAnswer = onAnswer,
-            )
+            TaskType.QUIZ -> QuizTask(task.question, task.options.orEmpty(), task.correctAnswer.orEmpty(), onAnswer)
+            TaskType.BLOCKS -> BlocksTask(task.question, task.blocks.orEmpty(), task.correctOrder.orEmpty(), onAnswer)
+            TaskType.CODE -> CodeTask(task.question, task.starterCode.orEmpty(), task.expectedOutput.orEmpty(), task.hint, onAnswer)
+            TaskType.DEBUG -> DebugTask(task.question, task.buggyCode.orEmpty(), task.fixedCode.orEmpty(), onAnswer)
+            TaskType.MATCH -> MatchTask(task.question, task.pairs.orEmpty(), onAnswer)
+            TaskType.FILL -> FillGapsTask(task.question, task.textParts.orEmpty(), task.fillOptions.orEmpty(), task.correctFill.orEmpty(), onAnswer)
         }
     }
 }

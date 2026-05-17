@@ -6,6 +6,7 @@ import com.codelingo.app.data.CourseRepository
 import com.codelingo.app.data.GameRepository
 import com.codelingo.app.data.ProgressSyncRepository
 import com.codelingo.app.data.SettingsRepository
+import com.codelingo.app.data.voice.FalstaffVoiceRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
@@ -22,6 +23,8 @@ class CodeLingoApp : Application() {
         private set
     lateinit var progressSyncRepository: ProgressSyncRepository
         private set
+    lateinit var falstaffVoiceRepository: FalstaffVoiceRepository
+        private set
 
     override fun onCreate() {
         super.onCreate()
@@ -33,5 +36,6 @@ class CodeLingoApp : Application() {
             it.authRepository = authRepository
         }
         settingsRepository = SettingsRepository(this)
+        falstaffVoiceRepository = FalstaffVoiceRepository(this)
     }
 }

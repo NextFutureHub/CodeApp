@@ -23,8 +23,11 @@ courses.forEach((course, ci) => {
     );
     level.lessons.forEach((lesson, si) => {
       const tasks = JSON.stringify(lesson.tasks).replace(/'/g, "''");
+      const storyIntro = lesson.storyIntro ? `'${JSON.stringify(lesson.storyIntro).replace(/'/g, "''")}'::jsonb` : "null";
+      const storyOutro = lesson.storyOutro ? `'${JSON.stringify(lesson.storyOutro).replace(/'/g, "''")}'::jsonb` : "null";
+      const miniScene = lesson.miniScene ? `'${JSON.stringify(lesson.miniScene).replace(/'/g, "''")}'::jsonb` : "null";
       lines.push(
-        `INSERT INTO public.lessons (id, level_id, title, description, xp_reward, theory, tasks, sort_order) VALUES (${esc(lesson.id)}, ${esc(level.id)}, ${esc(lesson.title)}, ${esc(lesson.description)}, ${lesson.xpReward}, ${esc(lesson.theory)}, '${tasks}'::jsonb, ${si}) ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description, xp_reward = EXCLUDED.xp_reward, theory = EXCLUDED.theory, tasks = EXCLUDED.tasks, sort_order = EXCLUDED.sort_order;`,
+        `INSERT INTO public.lessons (id, level_id, title, description, xp_reward, theory, tasks, story_intro, story_outro, mini_scene, sort_order) VALUES (${esc(lesson.id)}, ${esc(level.id)}, ${esc(lesson.title)}, ${esc(lesson.description)}, ${lesson.xpReward}, ${esc(lesson.theory)}, '${tasks}'::jsonb, ${storyIntro}, ${storyOutro}, ${miniScene}, ${si}) ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description, xp_reward = EXCLUDED.xp_reward, theory = EXCLUDED.theory, tasks = EXCLUDED.tasks, story_intro = EXCLUDED.story_intro, story_outro = EXCLUDED.story_outro, mini_scene = EXCLUDED.mini_scene, sort_order = EXCLUDED.sort_order;`,
       );
     });
   });

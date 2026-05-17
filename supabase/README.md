@@ -70,6 +70,17 @@ update public.profiles set role = 'admin' where id = 'ваш-uuid';
 
 Таблица `user_progress` в publication `supabase_realtime` — прогресс синхронизируется между устройствами.
 
+## Фальстаф: озвучка (ElevenLabs)
+
+1. Создайте API-ключ на [elevenlabs.io](https://elevenlabs.io).
+2. Задайте секреты в Supabase: **Project Settings → Edge Functions → Secrets**:
+   - `ELEVENLABS_API_KEY`
+   - `ELEVENLABS_VOICE_ID` (опционально, иначе дефолтный голос)
+3. Деплой функции: `npx supabase functions deploy falstaff-tts`
+4. Примените миграцию `20250517000006_lesson_story.sql` (`npx supabase db push`).
+
+Без ключа ElevenLabs приложение использует **Android TextToSpeech** (fallback).
+
 ## Android
 
 В `gradle.properties`:
