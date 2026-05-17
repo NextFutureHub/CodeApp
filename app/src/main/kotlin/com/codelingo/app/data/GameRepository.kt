@@ -16,9 +16,16 @@ import java.util.Date
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "codelingo_prefs")
 
-class GameRepository(private val context: Context) {
+class GameRepository(
+    private val context: Context,
+    private var progressSync: ProgressSyncRepository? = null,
+) {
     private val json = Json { ignoreUnknownKeys = true }
     private val stateKey = stringPreferencesKey("codelingo-state")
+
+    fun attachSync(sync: ProgressSyncRepository) {
+        progressSync = sync
+    }
 
   companion object {
         private const val XP_PER_LEVEL = 100
@@ -94,9 +101,34 @@ class GameRepository(private val context: Context) {
         saveState(prev.copy(lives = prev.maxLives))
     }
 
-    private suspend fun saveState(gameState: GameState) {
+    suspend fun updateUserName(name: String) {
+        val prev = state.first()
+        saveState(prev.copy(userName = name))
+    }
+
+    suspend fun mergeWithRemote(remote: GameState): GameState {
+        val local = state.first()
+        val merged = GameState(
+            xp = maxOf(local.xp, remote.xp),
+            level = maxOf(local.level, remote.level),
+            streak = maxOf(local.streak, remote.streak),
+            lives = maxOf(local.lives, remote.lives),
+            maxLives = maxOf(local.maxLives, remote.maxLives),
+            lastActiveDate = listOf(local.lastActiveDate, remote.lastActiveDate).maxBy { it },
+            completedLessons = (local.completedLessons + remote.completedLessons).distinct(),
+            achievements = (local.achievements + remote.achievements).distinct(),
+            userName = remote.userName.ifBlank { local.userName },
+        )
+        saveState(merged, pushRemote = true)
+        return merged
+    }
+
+    private suspend fun saveState(gameState: GameState, pushRemote: Boolean = true) {
         context.dataStore.edit { prefs ->
             prefs[stateKey] = json.encodeToString(gameState)
+        }
+        if (pushRemote) {
+            progressSync?.push(gameState)?.onFailure { /* offline — local cache kept */ }
         }
     }
 }

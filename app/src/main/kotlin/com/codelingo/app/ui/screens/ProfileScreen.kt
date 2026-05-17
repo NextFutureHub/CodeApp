@@ -38,6 +38,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.codelingo.app.data.CourseRepository
 import com.codelingo.app.data.model.GameState
+import com.codelingo.app.viewmodel.AuthViewModel
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.material3.TextButton
 import com.codelingo.app.ui.components.ProgressBar
 import com.codelingo.app.ui.theme.Border
 import com.codelingo.app.ui.theme.Card
@@ -55,8 +59,10 @@ import com.codelingo.app.ui.theme.parseHslColor
 fun ProfileScreen(
     state: GameState,
     courseRepository: CourseRepository,
+    authViewModel: AuthViewModel,
     onOpenSettings: () -> Unit,
 ) {
+    val currentUser by authViewModel.currentUser.collectAsState()
     val totalLessons = courseRepository.totalLessonCount()
     val courses = courseRepository.getCourses()
 
@@ -103,6 +109,14 @@ fun ProfileScreen(
         }
         Text(state.userName, color = Foreground, fontWeight = FontWeight.Black, fontSize = 24.sp, modifier = Modifier.padding(top = 16.dp))
         Text("Уровень ${state.level}", color = MutedForeground, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+        currentUser?.email?.let { email ->
+            Text(email, color = MutedForeground, fontSize = 12.sp, modifier = Modifier.padding(top = 4.dp))
+        }
+        if (authViewModel.isConfigured && currentUser != null) {
+            TextButton(onClick = { authViewModel.signOut() }) {
+                Text("Выйти", color = Primary, fontWeight = FontWeight.Bold)
+            }
+        }
 
         Row(
             modifier = Modifier

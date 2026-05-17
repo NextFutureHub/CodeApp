@@ -1,0 +1,2 @@
+-- Promote first admin (run once in SQL editor after signup):
+-- update public.profiles set role = 'admin' where id = '<your-user-uuid>';

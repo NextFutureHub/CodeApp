@@ -12,8 +12,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -27,6 +31,7 @@ import com.codelingo.app.navigation.Routes
 import com.codelingo.app.ui.components.CodeLingoBottomBar
 import com.codelingo.app.ui.components.ContentWidth
 import com.codelingo.app.ui.components.shouldShowBottomBar
+import com.codelingo.app.ui.screens.AuthScreen
 import com.codelingo.app.ui.screens.AchievementsScreen
 import com.codelingo.app.ui.screens.CoursePathScreen
 import com.codelingo.app.ui.screens.CoursesScreen
@@ -37,6 +42,7 @@ import com.codelingo.app.ui.screens.ProfileScreen
 import com.codelingo.app.ui.screens.SettingsScreen
 import com.codelingo.app.ui.theme.Background
 import com.codelingo.app.ui.theme.CodeLingoTheme
+import com.codelingo.app.viewmodel.AuthViewModel
 import com.codelingo.app.viewmodel.GameViewModel
 import com.codelingo.app.viewmodel.SettingsViewModel
 
@@ -55,14 +61,40 @@ class MainActivity : ComponentActivity() {
 fun CodeLingoAppContent(app: CodeLingoApp) {
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModel.Factory(app.gameRepository))
     val settingsViewModel: SettingsViewModel = viewModel(factory = SettingsViewModel.Factory(app.settingsRepository))
+    val authViewModel: AuthViewModel = viewModel(
+        factory = AuthViewModel.Factory(
+            app.authRepository,
+            app.progressSyncRepository,
+            app.courseRepository,
+        ),
+    )
     val isDarkTheme by settingsViewModel.isDarkTheme.collectAsState()
+    val currentUser by authViewModel.currentUser.collectAsState()
+    var skipAuth by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(currentUser?.id) {
+        if (currentUser != null) {
+            app.progressSyncRepository.pullAndMerge()
+            app.courseRepository.refreshFromRemote()
+            app.progressSyncRepository.startRealtimeSync()
+        }
+    }
 
     CodeLingoTheme(darkTheme = isDarkTheme) {
-        CodeLingoAppContentInner(
-            gameViewModel = gameViewModel,
-            settingsViewModel = settingsViewModel,
-            courseRepository = app.courseRepository,
-        )
+        if (authViewModel.isConfigured && currentUser == null && !skipAuth) {
+            AuthScreen(
+                authViewModel = authViewModel,
+                onAuthenticated = { skipAuth = false },
+                onContinueOffline = { skipAuth = true },
+            )
+        } else {
+            CodeLingoAppContentInner(
+                gameViewModel = gameViewModel,
+                settingsViewModel = settingsViewModel,
+                courseRepository = app.courseRepository,
+                authViewModel = authViewModel,
+            )
+        }
     }
 }
 
@@ -71,6 +103,7 @@ private fun CodeLingoAppContentInner(
     gameViewModel: GameViewModel,
     settingsViewModel: SettingsViewModel,
     courseRepository: com.codelingo.app.data.CourseRepository,
+    authViewModel: AuthViewModel,
 ) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -154,6 +187,7 @@ private fun CodeLingoAppContentInner(
                         ProfileScreen(
                             state = gameState,
                             courseRepository = courseRepository,
+                            authViewModel = authViewModel,
                             onOpenSettings = { navController.navigate(Routes.SETTINGS) },
                         )
                     }

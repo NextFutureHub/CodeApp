@@ -17,6 +17,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val supabaseUrl = project.findProperty("SUPABASE_URL") as String? ?: ""
+        val supabaseAnonKey = project.findProperty("SUPABASE_ANON_KEY") as String? ?: ""
+        buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrl\"")
+        buildConfigField("String", "SUPABASE_ANON_KEY", "\"$supabaseAnonKey\"")
     }
 
     buildTypes {
@@ -37,6 +42,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -55,6 +61,12 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
+
+    implementation(platform(libs.supabase.bom))
+    implementation(libs.supabase.auth)
+    implementation(libs.supabase.postgrest)
+    implementation(libs.supabase.realtime)
+    implementation(libs.ktor.client.android)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
