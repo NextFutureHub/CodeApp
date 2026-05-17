@@ -16,3 +16,7 @@ local.properties
 
 /node_modules
 /admin/node_modules
+.env
+.env.local
+/admin/.env
+/admin/.env.local

@@ -1,13 +1,19 @@
 import { createClient } from "@supabase/supabase-js";
 
-const url = import.meta.env.VITE_SUPABASE_URL;
-const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const url =
+  import.meta.env.VITE_SUPABASE_URL ?? import.meta.env.SUPABASE_URL ?? "";
+const key =
+  import.meta.env.VITE_SUPABASE_ANON_KEY ??
+  import.meta.env.SUPABASE_ANON_KEY ??
+  "";
 
 if (!url || !key) {
-  console.warn("VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY not set");
+  throw new Error(
+    "Задайте SUPABASE_URL и SUPABASE_ANON_KEY в CodeApp/.env (или VITE_SUPABASE_* в admin/.env), затем перезапустите npm run dev",
+  );
 }
 
-export const supabase = createClient(url ?? "", key ?? "");
+export const supabase = createClient(url, key);
 
 export type Profile = {
   id: string;

@@ -20,13 +20,28 @@
 - Ученик читает **опубликованные** курсы (`is_published = true`)
 - **admin** (поле `profiles.role`) — полный CRUD курсов и просмотр всех пользователей
 
+## CLI на Windows
+
+Глобальный `npm install -g supabase` **не поддерживается**. В проекте CLI уже в devDependencies:
+
+```powershell
+cd CodeApp
+npm install          # один раз
+npx supabase login
+npx supabase link --project-ref wawqxhxgbxexpwimupxy
+npx supabase db push
+```
+
+Или через npm-скрипты: `npm run login`, `npm run db:push`.
+
+Альтернатива: [Scoop](https://scoop.sh) → `scoop install supabase`, или `winget install Supabase.CLI`.
+
 ## Запуск локально
 
 ```bash
-# Установите Supabase CLI: https://supabase.com/docs/guides/cli
 cd CodeApp
-supabase start
-supabase db reset   # миграции + seed
+npx supabase start
+npx supabase db reset   # миграции + seed
 ```
 
 Скопируйте URL и anon key в `gradle.properties` и `admin/.env`.
