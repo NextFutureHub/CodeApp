@@ -43,9 +43,10 @@ private val navItems = listOf(
 fun CodeLingoBottomBar(
     currentRoute: String?,
     onNavigate: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(Card)
             .padding(horizontal = 8.dp)
@@ -81,5 +82,6 @@ fun CodeLingoBottomBar(
 
 fun shouldShowBottomBar(route: String?): Boolean {
     if (route == null) return true
-    return !route.startsWith("lesson")
+    val base = route.substringBefore("/")
+    return !route.startsWith("lesson") && base != Routes.SETTINGS
 }

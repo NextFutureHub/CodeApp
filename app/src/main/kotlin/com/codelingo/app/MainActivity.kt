@@ -9,13 +9,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -34,9 +34,11 @@ import com.codelingo.app.ui.screens.HomeScreen
 import com.codelingo.app.ui.screens.LessonScreen
 import com.codelingo.app.ui.screens.NotFoundScreen
 import com.codelingo.app.ui.screens.ProfileScreen
+import com.codelingo.app.ui.screens.SettingsScreen
 import com.codelingo.app.ui.theme.Background
 import com.codelingo.app.ui.theme.CodeLingoTheme
 import com.codelingo.app.viewmodel.GameViewModel
+import com.codelingo.app.viewmodel.SettingsViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,35 +46,52 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         val app = application as CodeLingoApp
         setContent {
-            CodeLingoTheme {
-                CodeLingoAppContent(
-                    gameViewModel = viewModel(factory = GameViewModel.Factory(app.gameRepository)),
-                    courseRepository = app.courseRepository,
-                )
-            }
+            CodeLingoAppContent(app = app)
         }
     }
 }
 
 @Composable
-fun CodeLingoAppContent(
+fun CodeLingoAppContent(app: CodeLingoApp) {
+    val gameViewModel: GameViewModel = viewModel(factory = GameViewModel.Factory(app.gameRepository))
+    val settingsViewModel: SettingsViewModel = viewModel(factory = SettingsViewModel.Factory(app.settingsRepository))
+    val isDarkTheme by settingsViewModel.isDarkTheme.collectAsState()
+
+    CodeLingoTheme(darkTheme = isDarkTheme) {
+        CodeLingoAppContentInner(
+            gameViewModel = gameViewModel,
+            settingsViewModel = settingsViewModel,
+            courseRepository = app.courseRepository,
+        )
+    }
+}
+
+@Composable
+private fun CodeLingoAppContentInner(
     gameViewModel: GameViewModel,
+    settingsViewModel: SettingsViewModel,
     courseRepository: com.codelingo.app.data.CourseRepository,
 ) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
     val gameState by gameViewModel.state.collectAsState()
+    val showBottomBar = shouldShowBottomBar(currentRoute)
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Background),
+            .background(Background)
+            .statusBarsPadding(),
     ) {
         Box(
             modifier = Modifier
                 .weight(1f)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .then(
+                    if (!showBottomBar) Modifier.navigationBarsPadding()
+                    else Modifier,
+                ),
             contentAlignment = Alignment.TopCenter,
         ) {
             ContentWidth {
@@ -132,7 +151,17 @@ fun CodeLingoAppContent(
                         AchievementsScreen(state = gameState)
                     }
                     composable(Routes.PROFILE) {
-                        ProfileScreen(state = gameState, courseRepository = courseRepository)
+                        ProfileScreen(
+                            state = gameState,
+                            courseRepository = courseRepository,
+                            onOpenSettings = { navController.navigate(Routes.SETTINGS) },
+                        )
+                    }
+                    composable(Routes.SETTINGS) {
+                        SettingsScreen(
+                            settingsViewModel = settingsViewModel,
+                            onBack = { navController.popBackStack() },
+                        )
                     }
                     composable("not_found") {
                         NotFoundScreen(onGoHome = {
@@ -145,8 +174,9 @@ fun CodeLingoAppContent(
             }
         }
 
-        if (shouldShowBottomBar(currentRoute)) {
+        if (showBottomBar) {
             CodeLingoBottomBar(
+                modifier = Modifier.navigationBarsPadding(),
                 currentRoute = currentRoute?.substringBefore("/"),
                 onNavigate = { route ->
                     navController.navigate(route) {

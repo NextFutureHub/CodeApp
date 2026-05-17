@@ -81,6 +81,7 @@ fun CoursePathScreen(
 
     val allLessons = courseRepository.getAllLessons(course)
     val courseColor = parseHslColor(course.color)
+    val borderColor = Border
     val svgHeight = RowHeight * allLessons.size + 60.dp
     val density = LocalDensity.current
 
@@ -144,7 +145,7 @@ fun CoursePathScreen(
                         }
                         drawPath(
                             path = path,
-                            color = if (isActive) courseColor.copy(alpha = 0.7f) else Border.copy(alpha = 0.4f),
+                            color = if (isActive) courseColor.copy(alpha = 0.7f) else borderColor.copy(alpha = 0.4f),
                             style = Stroke(
                                 width = 4.dp.toPx(),
                                 cap = StrokeCap.Round,

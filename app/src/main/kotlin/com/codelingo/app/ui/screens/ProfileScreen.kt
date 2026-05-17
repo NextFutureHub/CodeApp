@@ -2,6 +2,7 @@ package com.codelingo.app.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,9 +19,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Bolt
 import androidx.compose.material.icons.filled.LocalFireDepartment
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -48,7 +52,11 @@ import com.codelingo.app.ui.theme.Xp
 import com.codelingo.app.ui.theme.parseHslColor
 
 @Composable
-fun ProfileScreen(state: GameState, courseRepository: CourseRepository) {
+fun ProfileScreen(
+    state: GameState,
+    courseRepository: CourseRepository,
+    onOpenSettings: () -> Unit,
+) {
     val totalLessons = courseRepository.totalLessonCount()
     val courses = courseRepository.getCourses()
 
@@ -56,9 +64,34 @@ fun ProfileScreen(state: GameState, courseRepository: CourseRepository) {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(top = 24.dp, bottom = 80.dp),
+            .padding(top = 8.dp, bottom = 80.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                "Профиль",
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 8.dp),
+                color = Foreground,
+                fontWeight = FontWeight.Black,
+                fontSize = 22.sp,
+            )
+            IconButton(onClick = onOpenSettings) {
+                Icon(
+                    Icons.Default.Settings,
+                    contentDescription = "Настройки",
+                    tint = Primary,
+                    modifier = Modifier.size(26.dp),
+                )
+            }
+        }
+
         Box(
             modifier = Modifier
                 .size(96.dp)
@@ -88,6 +121,23 @@ fun ProfileScreen(state: GameState, courseRepository: CourseRepository) {
         ) {
             ProfileStat(Icons.Default.Book, "Уроков", "${state.completedLessons.size}/$totalLessons", Primary, Modifier.weight(1f))
             ProfileStat(Icons.Default.Star, "Достижения", state.achievements.size.toString(), Warning, Modifier.weight(1f))
+        }
+
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(Card)
+                .border(1.dp, Border, RoundedCornerShape(16.dp))
+                .clickable(onClick = onOpenSettings)
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Icon(Icons.Default.Settings, contentDescription = null, tint = Primary, modifier = Modifier.size(22.dp))
+            Text("Настройки", color = Foreground, fontWeight = FontWeight.ExtraBold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = MutedForeground)
         }
 
         Text(

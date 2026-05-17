@@ -1,5 +1,7 @@
 package com.codelingo.app.ui.theme
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 
 fun hsl(h: Float, s: Float, l: Float, alpha: Float = 1f): Color = Color.hsl(h, s / 100f, l / 100f, alpha)
@@ -13,19 +15,21 @@ fun parseHslColor(hslString: String, alpha: Float = 1f): Color {
     return hsl(h, s, l, alpha)
 }
 
-val Background = hsl(240f, 15f, 9f)
-val Foreground = hsl(0f, 0f, 95f)
-val Card = hsl(240f, 12f, 13f)
-val CardElevated = hsl(240f, 12f, 16f)
-val Primary = hsl(262f, 83f, 58f)
-val PrimaryGlow = hsl(262f, 90f, 65f)
-val PrimaryForeground = Color.White
-val Secondary = hsl(240f, 12f, 18f)
-val Muted = hsl(240f, 10f, 20f)
-val MutedForeground = hsl(240f, 5f, 55f)
-val Success = hsl(142f, 71f, 45f)
-val Warning = hsl(38f, 92f, 50f)
-val Destructive = hsl(0f, 72f, 51f)
-val Streak = hsl(25f, 95f, 53f)
-val Xp = hsl(199f, 89f, 48f)
-val Border = hsl(240f, 10f, 20f)
+private val palette @Composable @ReadOnlyComposable get() = LocalCodeLingoPalette.current
+
+val Background: Color @Composable @ReadOnlyComposable get() = palette.background
+val Foreground: Color @Composable @ReadOnlyComposable get() = palette.foreground
+val Card: Color @Composable @ReadOnlyComposable get() = palette.card
+val CardElevated: Color @Composable @ReadOnlyComposable get() = palette.cardElevated
+val Primary: Color @Composable @ReadOnlyComposable get() = palette.primary
+val PrimaryGlow: Color @Composable @ReadOnlyComposable get() = palette.primaryGlow
+val PrimaryForeground: Color @Composable @ReadOnlyComposable get() = palette.primaryForeground
+val Secondary: Color @Composable @ReadOnlyComposable get() = palette.secondary
+val Muted: Color @Composable @ReadOnlyComposable get() = palette.muted
+val MutedForeground: Color @Composable @ReadOnlyComposable get() = palette.mutedForeground
+val Success: Color @Composable @ReadOnlyComposable get() = palette.success
+val Warning: Color @Composable @ReadOnlyComposable get() = palette.warning
+val Destructive: Color @Composable @ReadOnlyComposable get() = palette.destructive
+val Streak: Color @Composable @ReadOnlyComposable get() = palette.streak
+val Xp: Color @Composable @ReadOnlyComposable get() = palette.xp
+val Border: Color @Composable @ReadOnlyComposable get() = palette.border

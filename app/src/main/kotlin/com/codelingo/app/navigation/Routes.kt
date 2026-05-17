@@ -7,6 +7,7 @@ object Routes {
     const val LESSON = "lesson/{courseId}/{lessonId}"
     const val ACHIEVEMENTS = "achievements"
     const val PROFILE = "profile"
+    const val SETTINGS = "settings"
 
     fun course(courseId: String) = "course/$courseId"
     fun lesson(courseId: String, lessonId: String) = "lesson/$courseId/$lessonId"

@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BugReport
 import androidx.compose.material.icons.filled.Check
@@ -33,11 +32,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.codelingo.app.ui.components.CodeLingoMultilineField
+import com.codelingo.app.ui.theme.NunitoFamily
 import com.codelingo.app.data.model.MatchPair
 import com.codelingo.app.ui.components.PrimaryButton
 import com.codelingo.app.ui.theme.Border
@@ -189,7 +189,7 @@ private fun FlowRowBlocks(items: List<String>, enabled: Boolean, onRemove: (Int)
                     .clickable(enabled = enabled) { onRemove(idx) }
                     .padding(horizontal = 12.dp, vertical = 8.dp),
                 color = Primary,
-                fontFamily = FontFamily.Monospace,
+                fontFamily = NunitoFamily,
                 fontWeight = FontWeight.Bold,
                 fontSize = 14.sp,
             )
@@ -367,7 +367,7 @@ fun FillGapsTask(
         ) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 textParts.forEachIndexed { index, part ->
-                    Text(part, color = Foreground, fontFamily = FontFamily.Monospace, fontSize = 14.sp)
+                    Text(part, color = Foreground, fontFamily = NunitoFamily, fontSize = 14.sp)
                     if (index < correctFill.size) {
                         val ans = answers[index]
                         Text(
@@ -429,22 +429,11 @@ private fun CodeEditor(value: String, answered: Boolean, isCorrect: Boolean, onV
         answered -> Destructive
         else -> Border
     }
-    BasicTextField(
+    CodeLingoMultilineField(
         value = value,
         onValueChange = onValueChange,
         enabled = !answered,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .background(CardElevated)
-            .border(2.dp, borderColor, RoundedCornerShape(16.dp))
-            .padding(16.dp),
-        textStyle = androidx.compose.ui.text.TextStyle(
-            color = Foreground,
-            fontFamily = FontFamily.Monospace,
-            fontSize = 14.sp,
-        ),
-        cursorBrush = SolidColor(Primary),
+        borderColor = borderColor,
     )
 }
 
