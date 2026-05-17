@@ -10,7 +10,7 @@ import com.codelingo.app.BuildConfig
 import com.codelingo.app.data.remote.SupabaseProvider
 import io.github.jan.supabase.auth.auth
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
+import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -43,7 +43,7 @@ private val json = Json { ignoreUnknownKeys = true }
 
 class FalstaffVoiceRepository(context: Context) {
     private val appContext = context.applicationContext
-    private val http = HttpClient(Android)
+    private val http = HttpClient(OkHttp)
     private val urlCache = ConcurrentHashMap<String, String>()
     private var tts: TextToSpeech? = null
     @Volatile

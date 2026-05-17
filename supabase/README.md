@@ -86,6 +86,8 @@ update public.profiles set role = 'admin' where id = 'ваш-uuid';
 
 ## Android
 
+Для **Realtime** нужен Ktor-движок с WebSocket (`ktor-client-okhttp`), не `ktor-client-android`.
+
 В `gradle.properties`:
 
 ```properties
