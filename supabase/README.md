@@ -72,17 +72,22 @@ update public.profiles set role = 'admin' where id = 'ваш-uuid';
 
 ## Фальстаф: озвучка (ElevenLabs)
 
-1. Создайте API-ключ на [elevenlabs.io](https://elevenlabs.io).
-2. Задайте секреты в Supabase: **Project Settings → Edge Functions → Secrets**:
-   - `ELEVENLABS_API_KEY`
-   - `ELEVENLABS_VOICE_ID` (опционально, иначе дефолтный голос)
-3. Деплой функции (с `verify_jwt = false` в `functions/falstaff-tts/config.toml`):
-   `npx supabase functions deploy falstaff-tts`
-4. Примените миграцию `20250517000006_lesson_story.sql` (`npx supabase db push`).
+1. Создайте API-ключ на [elevenlabs.io](https://elevenlabs.io) → Profile → API Key.
+2. **Важно для Free:** через API нельзя использовать premade/library-голоса (ошибка `paid_plan_required`).
+   - Откройте **Voices** → создайте голос (Voice Design / Instant Voice) или добавьте в **My Voices**.
+   - Скопируйте **Voice ID** (иконка ⋯ → Copy voice ID).
+3. Секреты в Supabase (**Project Settings → Edge Functions → Secrets**):
+   - `ELEVENLABS_API_KEY` — обязательно
+   - `ELEVENLABS_VOICE_ID` — ID **вашего** голоса (рекомендуется на Free)
+   - `ELEVENLABS_MODEL_ID` — опционально (`eleven_flash_v2_5` по умолчанию)
+4. Деплой: `npx supabase functions deploy falstaff-tts`
+5. Миграция бакета: `npx supabase db push`
 
-Без ключа ElevenLabs приложение использует **Android TextToSpeech** (fallback). На экране теории подсказка появится, если играет системный голос.
+Если `ELEVENLABS_VOICE_ID` не задан, функция попробует взять первый голос из вашего аккаунта (не premade).
 
-Проверка: в Logcat фильтр `FalstaffVoice` — ошибки HTTP или «ElevenLabs unavailable».
+Без ключа или при ошибке ElevenLabs приложение переключается на **Android TextToSpeech**.
+
+Logcat: `FalstaffVoice` — строка `→ Android TTS` с причиной.
 
 ## Android
 

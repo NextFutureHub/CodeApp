@@ -31,7 +31,13 @@ import kotlin.coroutines.resume
 private data class TtsRequest(val lessonId: String, val beatId: String, val text: String)
 
 @Serializable
-private data class TtsResponse(val url: String? = null, val cached: Boolean = false, val fallback: String? = null)
+private data class TtsResponse(
+    val url: String? = null,
+    val cached: Boolean = false,
+    val fallback: String? = null,
+    val reason: String? = null,
+    val detail: String? = null,
+)
 
 enum class VoiceSource {
     ElevenLabs,
@@ -117,16 +123,17 @@ class FalstaffVoiceRepository(context: Context) {
                 setBody(json.encodeToString(TtsRequest(lessonId, beatId, text)))
             }
             val raw = httpResponse.bodyAsText()
+            val response = runCatching { json.decodeFromString<TtsResponse>(raw) }.getOrNull()
+            if (response?.fallback == "tts") {
+                val hint = response.detail ?: response.reason ?: "ElevenLabs недоступен"
+                Log.w(TAG, "falstaff-tts → Android TTS: $hint")
+                return@runCatching null
+            }
             if (!httpResponse.status.isSuccess()) {
                 Log.w(TAG, "falstaff-tts HTTP ${httpResponse.status.value}: $raw")
                 return@runCatching null
             }
-            val response = json.decodeFromString<TtsResponse>(raw)
-            if (response.fallback == "tts") {
-                Log.w(TAG, "Edge function: ElevenLabs unavailable (set ELEVENLABS_API_KEY and deploy)")
-                return@runCatching null
-            }
-            response.url?.also { urlCache[cacheKey] = it }
+            response?.url?.also { urlCache[cacheKey] = it }
         }.onFailure { Log.e(TAG, "falstaff-tts failed", it) }.getOrNull()
     }
 
