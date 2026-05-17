@@ -10,6 +10,7 @@ import com.codelingo.app.data.AuthErrorMessages
 import com.codelingo.app.data.AuthRepository
 import com.codelingo.app.data.AuthUser
 import com.codelingo.app.data.CourseRepository
+import com.codelingo.app.data.GameRepository
 import com.codelingo.app.data.ProgressSyncRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -20,6 +21,7 @@ class AuthViewModel(
     private val authRepository: AuthRepository,
     private val progressSync: ProgressSyncRepository,
     private val courseRepository: CourseRepository,
+    private val gameRepository: GameRepository,
 ) : ViewModel() {
     val currentUser: StateFlow<AuthUser?> = authRepository.currentUser.stateIn(
         scope = viewModelScope,
@@ -57,6 +59,7 @@ class AuthViewModel(
     fun signOut() {
         viewModelScope.launch {
             progressSync.stopRealtimeSync()
+            gameRepository.setActiveUserId(null)
             authRepository.signOut()
         }
     }
@@ -72,11 +75,17 @@ class AuthViewModel(
         private val authRepository: AuthRepository,
         private val progressSync: ProgressSyncRepository,
         private val courseRepository: CourseRepository,
+        private val gameRepository: GameRepository,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {
-                return AuthViewModel(authRepository, progressSync, courseRepository) as T
+                return AuthViewModel(
+                    authRepository,
+                    progressSync,
+                    courseRepository,
+                    gameRepository,
+                ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

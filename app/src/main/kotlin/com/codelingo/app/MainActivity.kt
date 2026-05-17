@@ -66,6 +66,7 @@ fun CodeLingoAppContent(app: CodeLingoApp) {
             app.authRepository,
             app.progressSyncRepository,
             app.courseRepository,
+            app.gameRepository,
         ),
     )
     val isDarkTheme by settingsViewModel.isDarkTheme.collectAsState()

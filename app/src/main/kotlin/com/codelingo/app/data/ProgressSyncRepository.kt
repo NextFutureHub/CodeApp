@@ -57,7 +57,14 @@ class ProgressSyncRepository(
             }
             .decodeSingle<ProfileDto>()
 
-        gameRepository.mergeWithRemote(progress.toGameState(profile.displayName))
+        val remote = progress.toGameState(profile.displayName)
+        val previousUserId = gameRepository.getActiveUserId()
+        gameRepository.setActiveUserId(userId)
+        if (previousUserId != userId) {
+            gameRepository.applyRemote(remote)
+        } else {
+            gameRepository.mergeWithRemote(remote)
+        }
     }
 
     suspend fun push(state: GameState): Result<Unit> = runCatching {

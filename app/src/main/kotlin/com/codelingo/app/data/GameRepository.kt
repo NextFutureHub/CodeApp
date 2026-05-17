@@ -21,25 +21,42 @@ class GameRepository(
     private var progressSync: ProgressSyncRepository? = null,
 ) {
     private val json = Json { ignoreUnknownKeys = true }
-    private val stateKey = stringPreferencesKey("codelingo-state")
+    private val activeUserIdKey = stringPreferencesKey("codelingo-active-user-id")
 
     fun attachSync(sync: ProgressSyncRepository) {
         progressSync = sync
     }
 
-  companion object {
+    companion object {
         private const val XP_PER_LEVEL = 100
+        private const val GUEST_SLOT = "guest"
+
+        private fun progressKey(userId: String?) =
+            stringPreferencesKey("codelingo-state-${userId ?: GUEST_SLOT}")
     }
 
     val state: Flow<GameState> = context.dataStore.data.map { prefs ->
-        val raw = prefs[stateKey]
-        if (raw != null) {
-            try {
-                json.decodeFromString<GameState>(raw)
-            } catch (_: Exception) {
-                GameState()
+        decodeState(prefs[progressKey(prefs[activeUserIdKey])])
+    }
+
+    suspend fun getActiveUserId(): String? =
+        context.dataStore.data.first()[activeUserIdKey]
+
+    suspend fun setActiveUserId(userId: String?) {
+        context.dataStore.edit { prefs ->
+            if (userId != null) {
+                prefs[activeUserIdKey] = userId
+            } else {
+                prefs.remove(activeUserIdKey)
             }
-        } else {
+        }
+    }
+
+    private fun decodeState(raw: String?): GameState {
+        if (raw == null) return GameState()
+        return try {
+            json.decodeFromString<GameState>(raw)
+        } catch (_: Exception) {
             GameState()
         }
     }
@@ -106,6 +123,13 @@ class GameRepository(
         saveState(prev.copy(userName = name))
     }
 
+    /** Подменяет локальный прогресс данными из облака (смена аккаунта). */
+    suspend fun applyRemote(remote: GameState): GameState {
+        saveState(remote, pushRemote = false)
+        return remote
+    }
+
+    /** Объединяет с облаком только для того же пользователя (офлайн + sync). */
     suspend fun mergeWithRemote(remote: GameState): GameState {
         val local = state.first()
         val merged = GameState(
@@ -125,7 +149,8 @@ class GameRepository(
 
     private suspend fun saveState(gameState: GameState, pushRemote: Boolean = true) {
         context.dataStore.edit { prefs ->
-            prefs[stateKey] = json.encodeToString(gameState)
+            val key = progressKey(prefs[activeUserIdKey])
+            prefs[key] = json.encodeToString(gameState)
         }
         if (pushRemote) {
             progressSync?.push(gameState)?.onFailure { /* offline — local cache kept */ }
