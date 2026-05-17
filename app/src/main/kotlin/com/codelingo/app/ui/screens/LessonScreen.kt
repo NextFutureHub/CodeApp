@@ -91,23 +91,30 @@ fun LessonScreen(
     var correctCount by remember(lessonId) { mutableIntStateOf(0) }
     var advanceAfterAnswer by remember(lessonId) { mutableStateOf(false) }
 
-    LaunchedEffect(advanceAfterAnswer, taskCount) {
+    LaunchedEffect(taskCount) {
+        if (currentTask > taskCount) currentTask = taskCount
+    }
+
+    LaunchedEffect(advanceAfterAnswer) {
         if (!advanceAfterAnswer) return@LaunchedEffect
         delay(300)
         advanceAfterAnswer = false
-        when {
-            currentTask < taskCount - 1 -> currentTask++
-            currentTask < taskCount -> currentTask = taskCount
-        }
+        currentTask = minOf(currentTask + 1, taskCount)
     }
 
+    val safeTaskIndex = currentTask.coerceIn(0, (taskCount - 1).coerceAtLeast(0))
     val lessonPhase: LessonPhase = when {
-        currentTask == -1 -> LessonPhase.Theory
-        currentTask >= taskCount -> LessonPhase.Finished
-        else -> LessonPhase.TaskStep(currentTask)
+        currentTask < 0 -> LessonPhase.Theory
+        currentTask >= taskCount || taskCount == 0 -> LessonPhase.Finished
+        else -> LessonPhase.TaskStep(safeTaskIndex)
     }
     val progress = if (taskCount > 0) {
-        ((currentTask + 1).toFloat() / taskCount).coerceIn(0f, 1f)
+        val completedSteps = when {
+            currentTask < 0 -> 0
+            currentTask >= taskCount -> taskCount
+            else -> currentTask + 1
+        }
+        (completedSteps.toFloat() / taskCount).coerceIn(0f, 1f)
     } else {
         1f
     }
@@ -167,10 +174,10 @@ fun LessonScreen(
                     },
                 )
                 is LessonPhase.TaskStep -> {
-                    val taskIndex = phase.index
-                    if (taskIndex in 0 until taskCount) {
+                    val task = lesson.tasks.getOrNull(phase.index)
+                    if (task != null) {
                         TaskContent(
-                            task = lesson.tasks[taskIndex],
+                            task = task,
                             modifier = Modifier.fillMaxSize(),
                         ) { correct ->
                             if (correct) correctCount++
@@ -178,6 +185,10 @@ fun LessonScreen(
                             if (currentTask < taskCount) {
                                 advanceAfterAnswer = true
                             }
+                        }
+                    } else {
+                        LaunchedEffect(Unit) {
+                            currentTask = taskCount
                         }
                     }
                 }

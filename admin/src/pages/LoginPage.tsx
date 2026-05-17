@@ -12,7 +12,14 @@ export default function LoginPage() {
     setLoading(true);
     setError(null);
     const { error: err } = await supabase.auth.signInWithPassword({ email, password });
-    if (err) setError(err.message);
+    if (err) {
+      const msg = err.message ?? "";
+      if (msg.includes("email_not_confirmed")) {
+        setError("Подтвердите email по ссылке из письма или подтвердите пользователя в Supabase Dashboard.");
+      } else {
+        setError(msg);
+      }
+    }
     setLoading(false);
   }
 

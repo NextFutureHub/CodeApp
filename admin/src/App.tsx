@@ -66,7 +66,10 @@ export default function App() {
       <div className="auth-page">
         <div className="card auth-form">
           <h2>Доступ запрещён</h2>
-          <p>Нужна роль admin в таблице profiles.</p>
+          <p>
+            Для админки в таблице <code>profiles</code> нужна роль <strong>admin</strong> (не
+            «Ученик»). Ученики при регистрации получают <code>student</code> автоматически.
+          </p>
           <button type="button" className="primary" onClick={() => supabase.auth.signOut()}>
             Выйти
           </button>

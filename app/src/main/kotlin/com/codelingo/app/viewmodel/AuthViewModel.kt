@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.codelingo.app.data.AuthErrorMessages
 import com.codelingo.app.data.AuthRepository
 import com.codelingo.app.data.AuthUser
 import com.codelingo.app.data.CourseRepository
@@ -38,18 +39,18 @@ class AuthViewModel(
                 .onSuccess {
                     onAuthenticated(onSuccess)
                 }
-                .onFailure { authError = it.message }
+                .onFailure { authError = AuthErrorMessages.fromThrowable(it) }
         }
     }
 
-    fun signUp(email: String, password: String, displayName: String, onSuccess: () -> Unit) {
+    fun signUp(email: String, password: String, onSuccess: () -> Unit) {
         viewModelScope.launch {
             authError = null
-            authRepository.signUp(email, password, displayName)
+            authRepository.signUp(email, password)
                 .onSuccess {
                     onAuthenticated(onSuccess)
                 }
-                .onFailure { authError = it.message }
+                .onFailure { authError = AuthErrorMessages.fromThrowable(it) }
         }
     }
 

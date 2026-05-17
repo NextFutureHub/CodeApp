@@ -51,8 +51,6 @@ fun AuthScreen(
     var isRegister by rememberSaveable { mutableStateOf(false) }
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
-    var displayName by rememberSaveable { mutableStateOf("Ученик") }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -78,9 +76,6 @@ fun AuthScreen(
                 .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            if (isRegister) {
-                AuthField(displayName, { displayName = it }, "Имя")
-            }
             AuthField(email, { email = it }, "Email", KeyboardType.Email)
             AuthField(password, { password = it }, "Пароль", KeyboardType.Password, isPassword = true)
 
@@ -91,7 +86,7 @@ fun AuthScreen(
             Button(
                 onClick = {
                     if (isRegister) {
-                        authViewModel.signUp(email, password, displayName, onAuthenticated)
+                        authViewModel.signUp(email, password, onAuthenticated)
                     } else {
                         authViewModel.signIn(email, password, onAuthenticated)
                     }

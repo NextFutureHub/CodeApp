@@ -1,2 +1,4 @@
--- Promote first admin (run once in SQL editor after signup):
--- update public.profiles set role = 'admin' where id = '<your-user-uuid>';
+-- Роли: student = ученик (по умолчанию), admin = доступ к админ-панели
+-- Назначить админа (после регистрации):
+-- update public.profiles set role = 'admin'
+-- where id = (select id from auth.users where email = 'your@email.com');

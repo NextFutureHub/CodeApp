@@ -37,15 +37,21 @@ class AuthRepository {
         }
     }
 
-    suspend fun signUp(email: String, password: String, displayName: String): Result<Unit> = runCatching {
+    suspend fun signUp(email: String, password: String): Result<Unit> = runCatching {
         requireConfigured()
         SupabaseProvider.client.auth.signUpWith(Email) {
             this.email = email.trim()
             this.password = password
             data = buildJsonObject {
-                put("display_name", displayName.trim().ifBlank { "Ученик" })
+                put("display_name", DEFAULT_DISPLAY_NAME)
             }
         }
+    }
+
+    companion object {
+        const val DEFAULT_DISPLAY_NAME = "Ученик"
+        const val ROLE_STUDENT = "student"
+        const val ROLE_ADMIN = "admin"
     }
 
     suspend fun signOut(): Result<Unit> = runCatching {
