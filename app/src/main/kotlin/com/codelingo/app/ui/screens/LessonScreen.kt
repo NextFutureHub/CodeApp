@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -101,7 +102,7 @@ fun LessonScreen(
     var correctCount by remember(lessonId) { mutableIntStateOf(0) }
     var advanceAfterAnswer by remember(lessonId) { mutableStateOf(false) }
 
-    LaunchedEffect(advanceAfterAnswer, taskCount) {
+    LaunchedEffect(advanceAfterAnswer, taskIndex) {
         if (!advanceAfterAnswer) return@LaunchedEffect
         delay(300)
         advanceAfterAnswer = false
@@ -157,13 +158,11 @@ fun LessonScreen(
                 LessonStage.Task -> {
                     val task = lesson.tasks.getOrNull(taskIndex)
                     if (task != null) {
-                        TaskContent(task = task, modifier = Modifier.fillMaxSize()) { correct ->
-                            if (correct) correctCount++
-                            else gameViewModel.loseLife()
-                            if (taskIndex < taskCount - 1 || taskCount > 0) {
+                        key(task.id) {
+                            TaskContent(task = task, modifier = Modifier.fillMaxSize()) { correct ->
+                                if (correct) correctCount++
+                                else gameViewModel.loseLife()
                                 advanceAfterAnswer = true
-                            } else {
-                                stage = lesson.nextStageAfter(LessonStage.Task)
                             }
                         }
                     } else {

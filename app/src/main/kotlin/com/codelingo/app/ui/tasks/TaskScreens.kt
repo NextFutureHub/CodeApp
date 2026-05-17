@@ -163,11 +163,14 @@ fun BlocksTask(
 
 @Composable
 private fun SubmitAnswerEffect(answered: Boolean, onSubmit: () -> Unit) {
+    var submitted by remember { mutableStateOf(false) }
     LaunchedEffect(answered) {
-        if (answered) {
+        if (answered && !submitted) {
             delay(1200)
+            submitted = true
             onSubmit()
         }
+        if (!answered) submitted = false
     }
 }
 
